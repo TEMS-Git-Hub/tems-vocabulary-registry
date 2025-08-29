@@ -85,6 +85,19 @@ sequenceDiagram
 
 ---
 
+## 🔎 Discover assets
+
+Pick a dataspace to browse all ontologies, shapes, indexes and policies:
+
+- **TEMS** → [tems/](./tems/) · landing page: [tems/README.md](./tems/README.md)
+- **TAMIS** → [tamis/](./tamis/) · landing page: [tamis/README.md](./tamis/README.md)
+
+Each landing page is kept up-to-date by CI and lists:
+- **Ontologies** (all versions, all serializations)
+- **Shapes** (SHACL, etc.)
+- **Indexes** (facets/search descriptors)
+- **Policies** (ODRL, etc.)
+
 ## Folder Structure
 
 ```text

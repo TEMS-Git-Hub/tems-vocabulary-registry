@@ -27,10 +27,10 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install pySHACL
+      - name: Install pySHACL + markdown
         run: |
           python -m pip install --upgrade pip
-          pip install pyshacl rdflib
+          pip install pyshacl rdflib markdown
 
       - name: Validate RDF syntax (TTL) with riot (Docker)
         run: |
@@ -63,6 +63,8 @@ jobs:
           rm -rf public
           mkdir -p public
           cp -R tems tamis public/
+          # optional: keep a copy of README.md alongside the generated index
+          cp README.md public/ || true
           python scripts/generate_index.py
 
       - name: Generate DCAT JSON-LD catalog

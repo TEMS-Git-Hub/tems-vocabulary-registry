@@ -58,6 +58,13 @@ jobs:
             tems/README.md
             tamis/README.md
 
+      - name: Prepare site
+        run: |
+          rm -rf public
+          mkdir -p public
+          cp -R tems tamis public/
+          python scripts/generate_index.py
+
       - name: Generate DCAT JSON-LD catalog
         env:
           # Works for most repos; override with repository/organization variable if you use a custom domain
@@ -72,13 +79,6 @@ jobs:
         with:
           commit_message: "chore: update DCAT catalog"
           file_pattern: docs/catalog.jsonld
-
-      - name: Prepare site
-        run: |
-          rm -rf public
-          mkdir -p public
-          cp -R tems tamis public/
-          python scripts/generate_index.py
 
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v3

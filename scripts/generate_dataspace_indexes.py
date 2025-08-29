@@ -1,131 +1,117 @@
+#!/usr/bin/env python3
 import os, re, pathlib
 from collections import defaultdict
 
 REPO_ROOT = pathlib.Path(".").resolve()
 DATA_SPACES = ["tems", "tamis"]
 SECTIONS = ["ontologies", "shapes", "indexes", "policies"]
-# Treat as ontology serializations (for compact display):
-ONTO_EXTS = {".ttl", ".jsonld", ".rdf", ".owl", ".xml", ".rdfxml", ".n3", ".nt"}
-# Everything else shows as a plain file row.
 
-def list_files(root):
-  files = []
-  for p in sorted(root.rglob("*")):
-    if p.is_file():
-      files.append(p.relative_to(REPO_ROOT))
-  return files
+ONTO_EXTS = {".ttl", ".jsonld", ".rdf", ".owl", ".xml", ".n3", ".nt"}
 
-def make_rel_link(path):
-  return f"./{path.as_posix()}"
+def list_files(root: pathlib.Path):
+    for p in sorted(root.rglob("*")):
+        if p.is_file():
+            yield p
 
-def md_escape(s):
-  return s.replace("|", "\\|")
+def md_escape(s: str) -> str:
+    return s.replace("|", "\\|")
 
-def build_ontology_table(section_root):
-  """
-  Group by top-level ontology name and version directory if present.
-  Example tree:
-    ontologies/core/V0.1.0/core.ttl
-    ontologies/core/V0.1.0/core.jsonld
-  Table columns: Ontology | Version | Files
-  """
-  rows = []
-  # Find all files under ontologies/
-  for file in list_files(section_root):
-    ext = file.suffix.lower()
-    if ext not in ONTO_EXTS:
-      continue
-    parts = file.parts
-    # Expect: <dataspace>/ontologies/<name>/Vx.y.z/<file>
-    # Be lenient if version folder is missing.
-    try:
-      name_idx = parts.index("ontologies") + 1
-    except ValueError:
-      continue
-    name = parts[name_idx] if len(parts) > name_idx else "unknown"
-    version = None
-    if len(parts) > name_idx + 1 and parts[name_idx+1].lower().startswith("v"):
-      version = parts[name_idx+1]
-    # Collect all siblings with same name+version
-    rows.append( (name, version or "—", file) )
+def rel_link(p: pathlib.Path) -> str:
+    return f"./{p.as_posix()}"
 
-  # Merge files per (name,version)
-  grouped = defaultdict(list)
-  for name, version, file in rows:
-    grouped[(name, version)].append(file)
+def build_ontology_table(space_root: pathlib.Path, space: str) -> str:
+    ont_root = space_root / "ontologies"
+    if not ont_root.exists():
+        return "_(none found)_"
+    groups = defaultdict(list)
+    for f in list_files(ont_root):
+        if f.suffix.lower() not in ONTO_EXTS:
+            continue
+        parts = f.relative_to(space_root).parts  # ('ontologies','core','V0.1.0','core.ttl')
+        if len(parts) < 2:
+            continue
+        name = parts[1] if len(parts) > 1 else "unknown"
+        version = parts[2] if len(parts) > 2 and parts[2].lower().startswith("v") else "—"
+        groups[(name, version)].append(f)
 
-  if not grouped:
-    return "_(none found)_"
+    if not groups:
+        return "_(none found)_"
 
-  # Build table
-  out = ["| Ontology | Version | Files |",
-          "|---|---:|---|"]
-  for (name, version), files in sorted(grouped.items()):
-    links = []
-    # group by serialization extension for nicer display
-    by_ext = defaultdict(list)
+    out = [
+        "| Ontology | Version | Files |",
+        "|---|---:|---|",
+    ]
+    for (name, version), files in sorted(groups.items()):
+        links = []
+        for f in sorted(files):
+            links.append(f"[{md_escape(f.name)}]({rel_link(f)})")
+        out.append(f"| {md_escape(name)} | {md_escape(version)} | {', '.join(links)} |")
+    return "\n".join(out)
+
+def build_simple_file_table(space_root: pathlib.Path, section: str) -> str:
+    sec_root = space_root / section
+    if not sec_root.exists():
+        return "_(none found)_"
+    files = [p for p in list_files(sec_root) if p.name.lower() != "readme.md"]
+    if not files:
+        return "_(none found)_"
+    out = [
+        "| File | Path |",
+        "|---|---|",
+    ]
     for f in files:
-      by_ext[f.suffix.lower()].append(f)
-    for ext, flist in sorted(by_ext.items()):
-      for f in sorted(flist):
-        label = f.name
-        links.append(f"[{md_escape(label)}]({make_rel_link(f)})")
-    out.append(f"| {md_escape(name)} | {md_escape(version)} | " + ", ".join(links) + " |")
-  return "\n".join(out)
+        out.append(f"| {md_escape(f.name)} | [{md_escape(f.as_posix())}]({rel_link(f)}) |")
+    return "\n".join(out)
 
-def build_simple_file_table(section_root):
-  """
-  Flat table: File | Path
-  """
-  files = [p for p in list_files(section_root) if p.is_file()]
-  # Filter out README.md we're maintaining
-  files = [p for p in files if p.name.lower() != "readme.md"]
-  if not files:
-    return "_(none found)_"
-  out = ["| File | Path |",
-          "|---|---|"]
-  for f in files:
-    out.append(f"| {md_escape(f.name)} | [{md_escape(f.as_posix())}]({make_rel_link(f)}) |")
-  return "\n".join(out)
+def replace_block(text: str, marker_key: str, content: str) -> str:
+    pat = re.compile(
+        rf"(<!-- BEGIN:GENERATED {re.escape(marker_key)} -->)(.*?)(<!-- END:GENERATED {re.escape(marker_key)} -->)",
+        re.DOTALL,
+    )
+    # Use a function to avoid backreference issues (\1, \3 showing up)
+    def _repl(m):
+        return m.group(1) + "\n" + content + "\n" + m.group(3)
+    return pat.sub(_repl, text)
 
-def replace_block(text, marker_key, content):
-  pattern = re.compile(
-    rf"(<!-- BEGIN:GENERATED {re.escape(marker_key)} -->)(.*?)(<!-- END:GENERATED {re.escape(marker_key)} -->)",
-    re.DOTALL
-  )
-  return pattern.sub(rf"\\1\n{content}\n\\3", text)
+def main():
+    changed = False
+    for space in DATA_SPACES:
+        landing = REPO_ROOT / space / "README.md"
+        if not landing.exists():
+            # create minimal landing with markers if missing
+            landing.write_text(
+                f"# {space.upper()} assets\n\n"
+                f"## Ontologies\n<!-- BEGIN:GENERATED {space}/ontologies -->\n_(CI will populate)_\n<!-- END:GENERATED {space}/ontologies -->\n\n"
+                f"## Shapes\n<!-- BEGIN:GENERATED {space}/shapes -->\n_(CI will populate)_\n<!-- END:GENERATED {space}/shapes -->\n\n"
+                f"## Indexes\n<!-- BEGIN:GENERATED {space}/indexes -->\n_(CI will populate)_\n<!-- END:GENERATED {space}/indexes -->\n\n"
+                f"## Policies\n<!-- BEGIN:GENERATED {space}/policies -->\n_(CI will populate)_\n<!-- END:GENERATED {space}/policies -->\n",
+                encoding="utf-8",
+            )
 
-changed = False
-for space in DATA_SPACES:
-  landing = REPO_ROOT / space / "README.md"
-  if not landing.exists():
-    continue
-  with open(landing, "r", encoding="utf-8") as fh:
-    original = fh.read()
-  updated = original
+        text = landing.read_text(encoding="utf-8")
+        updated = text
 
-  for section in SECTIONS:
-    section_root = REPO_ROOT / space / section
-    marker = f"{space}/{section}"
-    if not section_root.exists():
-      # keep placeholder
-      continue
-    if section == "ontologies":
-      table = build_ontology_table(section_root)
-    else:
-      table = build_simple_file_table(section_root)
-    updated = replace_block(updated, marker, table)
+        space_root = REPO_ROOT / space
 
-  if updated != original:
-    with open(landing, "w", encoding="utf-8") as fh:
-      fh.write(updated)
-    changed = True
+        # Ontologies
+        updated = replace_block(
+            updated,
+            f"{space}/ontologies",
+            build_ontology_table(space_root, space),
+        )
+        # Simple sections
+        for section in ("shapes", "indexes", "policies"):
+            updated = replace_block(
+                updated,
+                f"{space}/{section}",
+                build_simple_file_table(space_root, section),
+            )
 
-# Optional: also write a tiny index at the dataspace root linking to subfolders
-for space in DATA_SPACES:
-  space_readme = REPO_ROOT / space / "README.md"
-  # ensure top intro exists (non-destructive)
-  if not space_readme.exists():
-    space_readme.write_text(f"# {space.upper()} assets\\n\\n", encoding="utf-8")
+        if updated != text:
+            landing.write_text(updated, encoding="utf-8")
+            changed = True
 
-# Exit code 0 always; an action down the line will commit if files changed.
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -63,9 +63,11 @@ jobs:
           rm -rf public
           mkdir -p public
           cp -R tems tamis public/
-          # optional: keep a copy of README.md alongside the generated index
+          # optional: keep MD copies next to HTML
           cp README.md public/ || true
-          python scripts/generate_index.py
+          cp tems/README.md public/tems/ || true
+          cp tamis/README.md public/tamis/ || true
+          python scripts/generate_site.py
 
       - name: Generate DCAT JSON-LD catalog
         env:

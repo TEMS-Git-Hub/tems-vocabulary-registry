@@ -17,18 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Java (for Apache Jena riot)
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Download Apache Jena (riot)
-        run: |
-          JENA_VERSION=4.10.0
-          curl -sL https://downloads.apache.org/jena/binaries/apache-jena-${JENA_VERSION}.tar.gz | tar xz
-          echo "$GITHUB_WORKSPACE/apache-jena-${JENA_VERSION}/bin" >> $GITHUB_PATH
-
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -39,10 +27,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyshacl rdflib
 
-      - name: Validate RDF syntax (TTL) with riot
+      - name: Validate RDF syntax (TTL) with riot (Docker)
         run: |
           set -e
-          find tems tamis -type f -name "*.ttl" -print0 | xargs -0 -I{} riot --validate "{}"
+          if find tems tamis -type f -name "*.ttl" | grep -q .; then
+            find tems tamis -type f -name "*.ttl" -print0 \
+              | xargs -0 -I{} docker run --rm -v "$PWD":/work stain/jena riot --validate "{}"
+          else
+            echo "No .ttl files found; skipping riot validation."
+          fi
 
       - name: SHACL validation
         run: |

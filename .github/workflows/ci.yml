@@ -57,20 +57,7 @@ jobs:
           rm -rf public
           mkdir -p public
           cp -R tems tamis public/
-          # Optional: generate an index.html
-          python - <<'PY'
-import os, html
-root = "public"
-def listing(path):
-    items = sorted(os.listdir(path))
-    lis = "".join(f'<li><a href="{html.escape(name)}">{html.escape(name)}</a></li>' for name in items)
-    return f"<ul>{lis}</ul>"
-with open(os.path.join(root, "index.html"), "w") as f:
-    f.write("<h1>Vocabulary Registry</h1>"+listing(root))
-for dirpath, dirnames, filenames in os.walk(root):
-    with open(os.path.join(dirpath, "index.html"), "w") as f:
-        f.write(f"<h2>{html.escape(dirpath.replace(root,'/'))}</h2>"+listing(dirpath))
-PY
+          python scripts/generate_index.py
 
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v3
@@ -81,7 +68,6 @@ PY
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: actions/deploy-pages@v4
 
-  # Optional: create a tag on push to main when files under ontologies change
   release:
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
     needs: build

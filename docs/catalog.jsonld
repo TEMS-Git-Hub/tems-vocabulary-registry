@@ -1,0 +1,234 @@
+{
+  "@context": {
+    "@vocab": "http://www.w3.org/ns/dcat#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "schema": "http://schema.org/",
+    "id": "@id",
+    "type": "@type"
+  },
+  "id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/catalog.jsonld",
+  "type": "dcat:Catalog",
+  "dct:title": "TEMS / TAMIS Vocabulary Registry",
+  "dct:description": "DCAT catalog of ontologies, shapes, indexes, and policies published from this repository.",
+  "dct:issued": "2025-08-29T14:08:31Z",
+  "dct:modified": "2025-08-29T14:08:31Z",
+  "dct:publisher": {
+    "type": "foaf:Agent",
+    "foaf:name": "TEMS project"
+  },
+  "dcat:dataset": [
+    {
+      "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/V0.1.0/",
+      "@type": "dcat:Dataset",
+      "dct:title": "TEMS ontology: core (V0.1.0)",
+      "dct:identifier": "tems:core:V0.1.0",
+      "dcat:keyword": [
+        "tems",
+        "ontologies",
+        "core"
+      ],
+      "dct:hasVersion": "V0.1.0",
+      "dcat:distribution": [
+        {
+          "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/V0.1.0/core.ttl",
+          "@type": "dcat:Distribution",
+          "dct:title": "core.ttl",
+          "dcat:accessURL": {
+            "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/V0.1.0/core.ttl"
+          },
+          "dcat:downloadURL": {
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/ontologies/core/V0.1.0/core.ttl"
+          },
+          "dcat:mediaType": "text/turtle",
+          "dct:format": "text/turtle"
+        }
+      ]
+    },
+    {
+      "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/shapes/media-objects.jsonld",
+      "@type": "dcat:Dataset",
+      "dct:title": "TEMS shape: media-objects",
+      "dct:identifier": "tems:shapes:media-objects",
+      "dcat:keyword": [
+        "tems",
+        "shapes",
+        "media-objects"
+      ],
+      "dcat:distribution": [
+        {
+          "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/shapes/media-objects.jsonld",
+          "@type": "dcat:Distribution",
+          "dct:title": "media-objects.jsonld",
+          "dcat:accessURL": {
+            "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/shapes/media-objects.jsonld"
+          },
+          "dcat:downloadURL": {
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/shapes/media-objects.jsonld"
+          },
+          "dcat:mediaType": "application/ld+json",
+          "dct:format": "application/ld+json"
+        }
+      ]
+    },
+    {
+      "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/indexes/media-objects.jsonld",
+      "@type": "dcat:Dataset",
+      "dct:title": "TEMS indexe: media-objects",
+      "dct:identifier": "tems:indexes:media-objects",
+      "dcat:keyword": [
+        "tems",
+        "indexes",
+        "media-objects"
+      ],
+      "dcat:distribution": [
+        {
+          "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/indexes/media-objects.jsonld",
+          "@type": "dcat:Distribution",
+          "dct:title": "media-objects.jsonld",
+          "dcat:accessURL": {
+            "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/indexes/media-objects.jsonld"
+          },
+          "dcat:downloadURL": {
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/indexes/media-objects.jsonld"
+          },
+          "dcat:mediaType": "application/ld+json",
+          "dct:format": "application/ld+json"
+        }
+      ]
+    },
+    {
+      "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/policies/media.jsonld",
+      "@type": "dcat:Dataset",
+      "dct:title": "TEMS policie: media",
+      "dct:identifier": "tems:policies:media",
+      "dcat:keyword": [
+        "tems",
+        "policies",
+        "media"
+      ],
+      "dcat:distribution": [
+        {
+          "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/policies/media.jsonld",
+          "@type": "dcat:Distribution",
+          "dct:title": "media.jsonld",
+          "dcat:accessURL": {
+            "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/policies/media.jsonld"
+          },
+          "dcat:downloadURL": {
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/policies/media.jsonld"
+          },
+          "dcat:mediaType": "application/ld+json",
+          "dct:format": "application/ld+json"
+        }
+      ]
+    },
+    {
+      "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/ontologies/core/V0.1.0/",
+      "@type": "dcat:Dataset",
+      "dct:title": "TAMIS ontology: core (V0.1.0)",
+      "dct:identifier": "tamis:core:V0.1.0",
+      "dcat:keyword": [
+        "tamis",
+        "ontologies",
+        "core"
+      ],
+      "dct:hasVersion": "V0.1.0",
+      "dcat:distribution": [
+        {
+          "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/ontologies/core/V0.1.0/core.ttl",
+          "@type": "dcat:Distribution",
+          "dct:title": "core.ttl",
+          "dcat:accessURL": {
+            "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/ontologies/core/V0.1.0/core.ttl"
+          },
+          "dcat:downloadURL": {
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/ontologies/core/V0.1.0/core.ttl"
+          },
+          "dcat:mediaType": "text/turtle",
+          "dct:format": "text/turtle"
+        }
+      ]
+    },
+    {
+      "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/shapes/media-objects.jsonld",
+      "@type": "dcat:Dataset",
+      "dct:title": "TAMIS shape: media-objects",
+      "dct:identifier": "tamis:shapes:media-objects",
+      "dcat:keyword": [
+        "tamis",
+        "shapes",
+        "media-objects"
+      ],
+      "dcat:distribution": [
+        {
+          "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/shapes/media-objects.jsonld",
+          "@type": "dcat:Distribution",
+          "dct:title": "media-objects.jsonld",
+          "dcat:accessURL": {
+            "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/shapes/media-objects.jsonld"
+          },
+          "dcat:downloadURL": {
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/shapes/media-objects.jsonld"
+          },
+          "dcat:mediaType": "application/ld+json",
+          "dct:format": "application/ld+json"
+        }
+      ]
+    },
+    {
+      "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/indexes/media-objects.jsonld",
+      "@type": "dcat:Dataset",
+      "dct:title": "TAMIS indexe: media-objects",
+      "dct:identifier": "tamis:indexes:media-objects",
+      "dcat:keyword": [
+        "tamis",
+        "indexes",
+        "media-objects"
+      ],
+      "dcat:distribution": [
+        {
+          "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/indexes/media-objects.jsonld",
+          "@type": "dcat:Distribution",
+          "dct:title": "media-objects.jsonld",
+          "dcat:accessURL": {
+            "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/indexes/media-objects.jsonld"
+          },
+          "dcat:downloadURL": {
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/indexes/media-objects.jsonld"
+          },
+          "dcat:mediaType": "application/ld+json",
+          "dct:format": "application/ld+json"
+        }
+      ]
+    },
+    {
+      "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/policies/media.jsonld",
+      "@type": "dcat:Dataset",
+      "dct:title": "TAMIS policie: media",
+      "dct:identifier": "tamis:policies:media",
+      "dcat:keyword": [
+        "tamis",
+        "policies",
+        "media"
+      ],
+      "dcat:distribution": [
+        {
+          "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/policies/media.jsonld",
+          "@type": "dcat:Distribution",
+          "dct:title": "media.jsonld",
+          "dcat:accessURL": {
+            "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/policies/media.jsonld"
+          },
+          "dcat:downloadURL": {
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/policies/media.jsonld"
+          },
+          "dcat:mediaType": "application/ld+json",
+          "dct:format": "application/ld+json"
+        }
+      ]
+    }
+  ]
+}

@@ -27,10 +27,10 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install pySHACL + markdown
+      - name: Install pySHACL + markdown + rdflib-jsonld
         run: |
           python -m pip install --upgrade pip
-          pip install pyshacl rdflib markdown
+          pip install pyshacl rdflib rdflib-jsonld markdown
 
       - name: Validate RDF syntax (TTL) with riot (Docker)
         run: |
@@ -46,6 +46,9 @@ jobs:
 
       - name: SHACL validation
         run: python scripts/validate_shacl.py
+
+      - name: Serialize TTL -> JSON-LD and RDF/XML
+        run: python scripts/serialize_from_ttl.py
 
       - name: Build dataspace README indexes
         run: python scripts/generate_dataspace_indexes.py

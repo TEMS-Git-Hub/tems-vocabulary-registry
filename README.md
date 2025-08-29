@@ -19,37 +19,44 @@ It provides:
 ```mermaid
 flowchart LR
   subgraph Users["Actors & Clients"]
-    C[Contributors (PRs)]
-    M[Maintainers]
-    U1[Data Space Apps<br/>(UIs, Search, Forms)]
-    U2[Connectors / Gateways<br/>(/public APIs)]
-    U3[Validation Services<br/>(ingestion/data-plane)]
+    C[ContributorsPRs]:::actor
+    M[Maintainers]:::actor
+    U1[Data Space Apps<br/>UIs, Search, Forms]:::client
+    U2[Connectors / Gateways<br/>/public APIs]:::client
+    U3[Validation Services<br/>ingestion/data-plane]:::client
   end
 
   subgraph Core["Vocabulary Registry (Monorepo)"]
-    R[Monorepo: /tems & /tamis<br/>ontologies · shapes · indexes · policies]
+    R[Monorepo: /tems & /tamis<br/>ontologies · shapes · indexes · policies]:::repo
   end
 
   subgraph CI["CI / CD"]
-    V[RDF/SHACL Validation]
-    B[Build & Serialize]
-    T[Semver Auto-Version]
-    P[Publish Static Artifacts]
+    V[RDF/SHACL Validation]:::ci
+    B[Build & Serialize<br/>ttl · json-ld · rdf-xml]:::ci
+    T[Tag & Version - semver]:::ci
+    P[Publish Static Artifacts]:::ci
   end
 
   subgraph Dist["Distribution"]
-    H[Static Hosting]
-    CDN[CDN]
-    W[Persistent IDs (w3id.org)]
+    H[Static Hosting - gh-pages/S3/Pages]:::dist
+    CDN[CDN]:::dist
+    W[Persistent IDs Resolver<br/>w3id.org]:::dist
   end
 
-  C --> R
-  M --> R
+  C -->|Pull Requests - new/updated vocabs| R
+  M -->|Review/Merge| R
   R --> V --> B --> T --> P --> H --> CDN
-  W --> CDN
-  U1 --> CDN
-  U2 --> CDN
-  U3 --> CDN
+  W -->|HTTP 302| CDN
+
+  U1 -->|Fetch contexts/vocabs<br/>to auto-generate UI facets| CDN
+  U2 -->|Fetch shapes to constrain APIs| CDN
+  U3 -->|Fetch shapes/policies<br/>to validate payloads| CDN
+
+  classDef actor fill:#f7f7ff,stroke:#556,stroke-width:1px
+  classDef repo fill:#eef,stroke:#447,stroke-width:1px
+  classDef ci fill:#efe,stroke:#484,stroke-width:1px
+  classDef dist fill:#fee,stroke:#844,stroke-width:1px
+  classDef client fill:#fff,stroke:#777,stroke-dasharray:3 3
 ```
 
 ---

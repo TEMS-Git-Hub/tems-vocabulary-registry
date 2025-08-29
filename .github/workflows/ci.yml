@@ -5,6 +5,7 @@ on:
     branches: [ main, master ]
   pull_request:
 
+# top-level permissions are fine, but deploy job will also set its own
 permissions:
   contents: write
   pages: write
@@ -40,12 +41,10 @@ jobs:
           fi
 
       - name: SHACL validation
-        run: |
-          python scripts/validate_shacl.py
+        run: python scripts/validate_shacl.py
 
       - name: Serialize TTL -> JSON-LD and RDF/XML
-        run: |
-          bash scripts/serialize.sh
+        run: bash scripts/serialize.sh
 
       - name: Prepare site
         run: |
@@ -59,13 +58,30 @@ jobs:
         with:
           path: public
 
+  deploy:
+    # only deploy from main/master
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+
+    # REQUIRED for actions/deploy-pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # REQUIRED permissions for deployment
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
       - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        id: deployment
         uses: actions/deploy-pages@v4
 
   release:
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-    needs: build
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

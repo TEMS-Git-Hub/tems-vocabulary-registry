@@ -127,6 +127,7 @@ sequenceDiagram
 
 - Put ontology sources in Turtle under `*/ontologies/*/Vx.y.z/*.ttl`.
 - CI will:
+
   1) validate TTL syntax (Apache Jena **riot**),
   2) run **pySHACL** against shapes,
   3) serialize **.ttl** → **.jsonld** and **.rdf.xml** next to the source,

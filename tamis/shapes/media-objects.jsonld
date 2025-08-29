@@ -1,0 +1,19 @@
+{
+  "@context": {
+    "sh": "http://www.w3.org/ns/shacl#",
+    "schema": "http://schema.org/",
+    "tems": "https://w3id.org/tems/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://w3id.org/tems/shapes/MediaObjectShape",
+  "@type": "sh:NodeShape",
+  "sh:targetClass": "tems:MediaObject",
+  "sh:property": [
+    {
+      "sh:path": "schema:name",
+      "sh:datatype": "xsd:string",
+      "sh:minCount": 1,
+      "sh:message": "MediaObject should have a schema:name (string)."
+    }
+  ]
+}

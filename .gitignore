@@ -1,0 +1,12 @@
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+.venv/
+
+# Pages build
+public/
+
+# Node
+node_modules/

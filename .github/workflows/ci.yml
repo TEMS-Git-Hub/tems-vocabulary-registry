@@ -1,0 +1,97 @@
+name: CI Vocabulary Registry
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java (for Apache Jena riot)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Download Apache Jena (riot)
+        run: |
+          JENA_VERSION=4.10.0
+          curl -sL https://downloads.apache.org/jena/binaries/apache-jena-${JENA_VERSION}.tar.gz | tar xz
+          echo "$GITHUB_WORKSPACE/apache-jena-${JENA_VERSION}/bin" >> $GITHUB_PATH
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pySHACL
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyshacl rdflib
+
+      - name: Validate RDF syntax (TTL) with riot
+        run: |
+          set -e
+          find tems tamis -type f -name "*.ttl" -print0 | xargs -0 -I{} riot --validate "{}"
+
+      - name: SHACL validation
+        run: |
+          python scripts/validate_shacl.py
+
+      - name: Serialize TTL -> JSON-LD and RDF/XML
+        run: |
+          bash scripts/serialize.sh
+
+      - name: Prepare site
+        run: |
+          rm -rf public
+          mkdir -p public
+          cp -R tems tamis public/
+          # Optional: generate an index.html
+          python - <<'PY'
+import os, html
+root = "public"
+def listing(path):
+    items = sorted(os.listdir(path))
+    lis = "".join(f'<li><a href="{html.escape(name)}">{html.escape(name)}</a></li>' for name in items)
+    return f"<ul>{lis}</ul>"
+with open(os.path.join(root, "index.html"), "w") as f:
+    f.write("<h1>Vocabulary Registry</h1>"+listing(root))
+for dirpath, dirnames, filenames in os.walk(root):
+    with open(os.path.join(dirpath, "index.html"), "w") as f:
+        f.write(f"<h2>{html.escape(dirpath.replace(root,'/'))}</h2>"+listing(dirpath))
+PY
+
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        uses: actions/deploy-pages@v4
+
+  # Optional: create a tag on push to main when files under ontologies change
+  release:
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bump & Tag (semver minor if ontologies changed)
+        uses: anothrNick/github-tag-action@1.71.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: minor
+          WITH_V: true
+          RELEASE_BRANCHES: main,master

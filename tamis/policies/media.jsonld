@@ -1,0 +1,29 @@
+{
+  "@context": [
+    "http://www.w3.org/ns/odrl.jsonld",
+    {
+      "schema": "http://schema.org/",
+      "tems": "https://w3id.org/tems/core#"
+    }
+  ],
+  "uid": "https://w3id.org/tems/policies/media",
+  "type": "Set",
+  "permission": [
+    {
+      "target": "tems:MediaObject",
+      "action": [
+        {
+          "type": "use"
+        }
+      ],
+      "constraint": [
+        {
+          "leftOperand": "spatial",
+          "operator": "eq",
+          "rightOperand": "EU"
+        }
+      ]
+    }
+  ],
+  "prohibition": []
+}

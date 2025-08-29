@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "tems": "https://w3id.org/tems/core#"
+  },
+  "@id": "https://w3id.org/tems/indexes/media-objects",
+  "type": "DataCatalog",
+  "name": "Media Objects Providers",
+  "dataset": [
+    {
+      "type": "Dataset",
+      "name": "AFP Fact-Checks",
+      "identifier": "afp-factchecks",
+      "url": "https://factcheck.afp.com/",
+      "distribution": [
+        {
+          "contentUrl": "https://example.org/afp/public"
+        }
+      ],
+      "additionalType": "tems:MediaObject"
+    }
+  ]
+}

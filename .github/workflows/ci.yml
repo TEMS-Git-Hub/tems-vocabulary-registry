@@ -32,7 +32,9 @@ jobs:
           set -e
           if find tems tamis -type f -name "*.ttl" | grep -q .; then
             find tems tamis -type f -name "*.ttl" -print0 \
-              | xargs -0 -I{} docker run --rm -v "$PWD":/work stain/jena riot --validate "{}"
+              | xargs -0 -I{} docker run --rm \
+                  -v "$PWD":/rdf -w /rdf \
+                  stain/jena riot --validate "{}"
           else
             echo "No .ttl files found; skipping riot validation."
           fi

@@ -7,7 +7,7 @@ riot_cmd () {
   if command -v riot >/dev/null 2>&1; then
     riot "$@"
   else
-    docker run --rm -v "$PWD":/work stain/jena riot "$@"
+    docker run --rm -v "$PWD":/rdf -w /rdf stain/jena riot "$@"
   fi
 }
 

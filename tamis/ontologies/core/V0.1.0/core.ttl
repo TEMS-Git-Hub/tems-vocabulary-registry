@@ -1,19 +1,20 @@
-@prefix tems: <https://w3id.org/tems/core#> .
+@prefix tamis: <https://w3id.org/tamis/core#> .
 @prefix schema: <http://schema.org/> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
 
-tems: a owl:Ontology ;
+tamis: a owl:Ontology ;
   dct:title "TAMIS Core Ontology (sample)"@en ;
   owl:versionInfo "0.1.0" ;
-  dct:creator "TEMS" ;
+  dct:creator "TAMIS" ;
   dct:license <https://creativecommons.org/licenses/by/4.0/> .
 
-tems:MediaObject a owl:Class ;
-  dct:description "A media object published in TEMS."@en ;
+tamis:MediaObject a owl:Class ;
+  dct:description "A media object published in TAMIS."@en ;
   rdfs:subClassOf schema:CreativeWork .
 
-tems:hasFormat a owl:ObjectProperty ;
-  rdfs:domain tems:MediaObject ;
+tamis:hasFormat a owl:ObjectProperty ;
+  rdfs:domain tamis:MediaObject ;
   rdfs:range schema:MediaObject ;
   dct:description "Links to a concrete media representation."@en .

@@ -1,0 +1,23 @@
+@prefix api: <http://purl.org/linked-data/api/vocab#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix schema: <http://schema.org/> .
+@prefix tamis: <https://w3id.org/tamis/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/tamis/api/media-objects>
+    a api:API ;
+    dct:title "TAMIS Media Objects API" ;
+    dct:description "OpenAPI specification for TAMIS media objects management" ;
+    schema:version "0.1.0" ;
+    api:base <https://api.tamis.example.com/v1> ;
+    api:endpoint [
+        api:uriTemplate "/media-objects" ;
+        api:method "GET", "POST" ;
+        dct:description "List and create media objects"
+    ] , [
+        api:uriTemplate "/media-objects/{id}" ;
+        api:method "GET" ;
+        dct:description "Retrieve specific media object"
+    ] ;
+    api:defaultFormat "application/json" ;
+    schema:about tamis:MediaObject .

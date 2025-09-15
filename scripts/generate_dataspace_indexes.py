@@ -4,7 +4,7 @@ from collections import defaultdict
 
 REPO_ROOT = pathlib.Path(".").resolve()
 DATA_SPACES = ["tems", "tamis"]
-SECTIONS = ["ontologies", "shapes", "indexes", "policies"]
+SECTIONS = ["ontologies", "shapes", "indexes", "policies", "open-api"]
 
 ONTO_EXTS = {".ttl", ".jsonld", ".rdf", ".owl", ".xml", ".n3", ".nt"}
 
@@ -28,11 +28,11 @@ def build_ontologies_table(space_root: pathlib.Path) -> str:
     for f_abs in rglob_files(ont_root):
         if f_abs.suffix.lower() not in ONTO_EXTS:
             continue
-        parts = f_abs.relative_to(space_root).parts  # ('ontologies','core','V0.1.0','core.ttl')
-        if len(parts) < 2:
+        parts = f_abs.relative_to(space_root).parts  # ('ontologies','core','0.1.0','core.ttl')
+        if len(parts) < 4:
             continue
         name = parts[1] if len(parts) > 1 else "unknown"
-        version = parts[2] if len(parts) > 2 and parts[2].lower().startswith("v") else "—"
+        version = parts[2] if len(parts) > 2 else "—"
         groups[(name, version)].append(f_abs)
     if not groups:
         return "_(none found)_"
@@ -49,13 +49,25 @@ def build_simple_table(space_root: pathlib.Path, section: str) -> str:
     sec_root = space_root / section
     if not sec_root.exists():
         return "_(none found)_"
-    files = [f for f in rglob_files(sec_root) if f.name.lower() != "readme.md"]
-    if not files:
+    groups = defaultdict(list)  # (name, version) -> [file]
+    for f_abs in rglob_files(sec_root):
+        if f_abs.name.lower() == "readme.md":
+            continue
+        parts = f_abs.relative_to(space_root).parts  # ('shapes','media-objects','0.1.0','media-objects.jsonld')
+        if len(parts) < 4:
+            continue
+        name = parts[1] if len(parts) > 1 else "unknown"
+        version = parts[2] if len(parts) > 2 else "—"
+        groups[(name, version)].append(f_abs)
+    if not groups:
         return "_(none found)_"
-    rows = ["| File | Path |", "|---|---|"]
-    for f in sorted(files):
-        rel = rel_link_from_space(space_root, f)
-        rows.append(f"| {md_escape(f.name)} | [{md_escape(rel[2:])}]({rel}) |")
+    rows = ["| Name | Version | Files |", "|---|---:|---|"]
+    for (name, version), files in sorted(groups.items()):
+        links = [
+            f"[{md_escape(f.name)}]({rel_link_from_space(space_root, f)})"
+            for f in sorted(files)
+        ]
+        rows.append(f"| {md_escape(name)} | {md_escape(version)} | {', '.join(links)} |")
     return "\n".join(rows)
 
 def build_full_readme(space: str, space_root: pathlib.Path) -> str:
@@ -65,7 +77,8 @@ def build_full_readme(space: str, space_root: pathlib.Path) -> str:
         f"## Ontologies\n{build_ontologies_table(space_root)}\n\n"
         f"## Shapes\n{build_simple_table(space_root, 'shapes')}\n\n"
         f"## Indexes\n{build_simple_table(space_root, 'indexes')}\n\n"
-        f"## Policies\n{build_simple_table(space_root, 'policies')}\n"
+        f"## Policies\n{build_simple_table(space_root, 'policies')}\n\n"
+        f"## OpenAPI\n{build_simple_table(space_root, 'open-api')}\n"
     )
 
 def main():

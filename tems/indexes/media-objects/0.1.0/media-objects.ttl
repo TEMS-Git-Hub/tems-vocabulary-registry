@@ -1,0 +1,16 @@
+@prefix schema: <http://schema.org/> .
+@prefix tems: <https://w3id.org/tems/core#> .
+
+<https://w3id.org/tems/indexes/media-objects>
+    a schema:DataCatalog ;
+    schema:name "Media Objects Providers" ;
+    schema:dataset [
+        a schema:Dataset ;
+        schema:name "AFP Fact-Checks" ;
+        schema:identifier "afp-factchecks" ;
+        schema:url <https://factcheck.afp.com/> ;
+        schema:distribution [
+            schema:contentUrl <https://example.org/afp/public>
+        ] ;
+        schema:additionalType tems:MediaObject
+    ] .

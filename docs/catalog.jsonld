@@ -13,8 +13,8 @@
   "type": "dcat:Catalog",
   "dct:title": "TEMS / TAMIS Vocabulary Registry",
   "dct:description": "DCAT catalog of ontologies, shapes, indexes, and policies published from this repository.",
-  "dct:issued": "2025-09-15T15:32:17Z",
-  "dct:modified": "2025-09-15T15:32:17Z",
+  "dct:issued": "2025-09-15T15:33:03Z",
+  "dct:modified": "2025-09-15T15:33:03Z",
   "dct:publisher": {
     "type": "foaf:Agent",
     "foaf:name": "TEMS project"
@@ -40,7 +40,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/0.1.0/core.jsonld"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/ontologies/core/0.1.0/core.jsonld"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/ontologies/core/0.1.0/core.jsonld"
           },
           "dcat:mediaType": "application/ld+json",
           "dct:format": "application/ld+json"
@@ -53,7 +53,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/0.1.0/core.rdf.xml"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/ontologies/core/0.1.0/core.rdf.xml"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/ontologies/core/0.1.0/core.rdf.xml"
           },
           "dcat:mediaType": "application/rdf+xml",
           "dct:format": "application/rdf+xml"
@@ -66,7 +66,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/0.1.0/core.ttl"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/ontologies/core/0.1.0/core.ttl"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/ontologies/core/0.1.0/core.ttl"
           },
           "dcat:mediaType": "text/turtle",
           "dct:format": "text/turtle"
@@ -93,7 +93,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/shapes/media-objects/0.1.0/media-objects.jsonld"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/shapes/media-objects/0.1.0/media-objects.jsonld"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/shapes/media-objects/0.1.0/media-objects.jsonld"
           },
           "dcat:mediaType": "application/ld+json",
           "dct:format": "application/ld+json"
@@ -106,7 +106,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/shapes/media-objects/0.1.0/media-objects.rdf.xml"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/shapes/media-objects/0.1.0/media-objects.rdf.xml"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/shapes/media-objects/0.1.0/media-objects.rdf.xml"
           },
           "dcat:mediaType": "application/rdf+xml",
           "dct:format": "application/rdf+xml"
@@ -119,7 +119,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/shapes/media-objects/0.1.0/media-objects.ttl"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/shapes/media-objects/0.1.0/media-objects.ttl"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/shapes/media-objects/0.1.0/media-objects.ttl"
           },
           "dcat:mediaType": "text/turtle",
           "dct:format": "text/turtle"
@@ -146,7 +146,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/indexes/media-objects/0.1.0/media-objects.jsonld"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/indexes/media-objects/0.1.0/media-objects.jsonld"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/indexes/media-objects/0.1.0/media-objects.jsonld"
           },
           "dcat:mediaType": "application/ld+json",
           "dct:format": "application/ld+json"
@@ -159,7 +159,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/indexes/media-objects/0.1.0/media-objects.rdf.xml"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/indexes/media-objects/0.1.0/media-objects.rdf.xml"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/indexes/media-objects/0.1.0/media-objects.rdf.xml"
           },
           "dcat:mediaType": "application/rdf+xml",
           "dct:format": "application/rdf+xml"
@@ -172,7 +172,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/indexes/media-objects/0.1.0/media-objects.ttl"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/indexes/media-objects/0.1.0/media-objects.ttl"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/indexes/media-objects/0.1.0/media-objects.ttl"
           },
           "dcat:mediaType": "text/turtle",
           "dct:format": "text/turtle"
@@ -199,7 +199,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/policies/media/0.1.0/media.jsonld"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/policies/media/0.1.0/media.jsonld"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/policies/media/0.1.0/media.jsonld"
           },
           "dcat:mediaType": "application/ld+json",
           "dct:format": "application/ld+json"
@@ -212,7 +212,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/policies/media/0.1.0/media.rdf.xml"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/policies/media/0.1.0/media.rdf.xml"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/policies/media/0.1.0/media.rdf.xml"
           },
           "dcat:mediaType": "application/rdf+xml",
           "dct:format": "application/rdf+xml"
@@ -225,7 +225,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/policies/media/0.1.0/media.ttl"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/policies/media/0.1.0/media.ttl"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/policies/media/0.1.0/media.ttl"
           },
           "dcat:mediaType": "text/turtle",
           "dct:format": "text/turtle"
@@ -252,7 +252,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/open-api/media-objects/0.1.0/media-objects.jsonld"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/open-api/media-objects/0.1.0/media-objects.jsonld"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/open-api/media-objects/0.1.0/media-objects.jsonld"
           },
           "dcat:mediaType": "application/ld+json",
           "dct:format": "application/ld+json"
@@ -265,7 +265,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/open-api/media-objects/0.1.0/media-objects.rdf.xml"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/open-api/media-objects/0.1.0/media-objects.rdf.xml"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/open-api/media-objects/0.1.0/media-objects.rdf.xml"
           },
           "dcat:mediaType": "application/rdf+xml",
           "dct:format": "application/rdf+xml"
@@ -278,7 +278,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/open-api/media-objects/0.1.0/media-objects.ttl"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/open-api/media-objects/0.1.0/media-objects.ttl"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/open-api/media-objects/0.1.0/media-objects.ttl"
           },
           "dcat:mediaType": "text/turtle",
           "dct:format": "text/turtle"
@@ -291,7 +291,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/open-api/media-objects/0.1.0/media-objects.yaml"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tems/open-api/media-objects/0.1.0/media-objects.yaml"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/open-api/media-objects/0.1.0/media-objects.yaml"
           },
           "dcat:mediaType": "application/x-yaml",
           "dct:format": "application/x-yaml"
@@ -318,7 +318,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/ontologies/core/0.1.0/core.jsonld"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/ontologies/core/0.1.0/core.jsonld"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/ontologies/core/0.1.0/core.jsonld"
           },
           "dcat:mediaType": "application/ld+json",
           "dct:format": "application/ld+json"
@@ -331,7 +331,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/ontologies/core/0.1.0/core.rdf.xml"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/ontologies/core/0.1.0/core.rdf.xml"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/ontologies/core/0.1.0/core.rdf.xml"
           },
           "dcat:mediaType": "application/rdf+xml",
           "dct:format": "application/rdf+xml"
@@ -344,7 +344,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/ontologies/core/0.1.0/core.ttl"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/ontologies/core/0.1.0/core.ttl"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/ontologies/core/0.1.0/core.ttl"
           },
           "dcat:mediaType": "text/turtle",
           "dct:format": "text/turtle"
@@ -371,7 +371,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/shapes/media-objects/0.1.0/media-objects.jsonld"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/shapes/media-objects/0.1.0/media-objects.jsonld"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/shapes/media-objects/0.1.0/media-objects.jsonld"
           },
           "dcat:mediaType": "application/ld+json",
           "dct:format": "application/ld+json"
@@ -384,7 +384,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/shapes/media-objects/0.1.0/media-objects.rdf.xml"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/shapes/media-objects/0.1.0/media-objects.rdf.xml"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/shapes/media-objects/0.1.0/media-objects.rdf.xml"
           },
           "dcat:mediaType": "application/rdf+xml",
           "dct:format": "application/rdf+xml"
@@ -397,7 +397,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/shapes/media-objects/0.1.0/media-objects.ttl"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/shapes/media-objects/0.1.0/media-objects.ttl"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/shapes/media-objects/0.1.0/media-objects.ttl"
           },
           "dcat:mediaType": "text/turtle",
           "dct:format": "text/turtle"
@@ -424,7 +424,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/indexes/media-objects/0.1.0/media-objects.jsonld"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/indexes/media-objects/0.1.0/media-objects.jsonld"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/indexes/media-objects/0.1.0/media-objects.jsonld"
           },
           "dcat:mediaType": "application/ld+json",
           "dct:format": "application/ld+json"
@@ -437,7 +437,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/indexes/media-objects/0.1.0/media-objects.rdf.xml"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/indexes/media-objects/0.1.0/media-objects.rdf.xml"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/indexes/media-objects/0.1.0/media-objects.rdf.xml"
           },
           "dcat:mediaType": "application/rdf+xml",
           "dct:format": "application/rdf+xml"
@@ -450,7 +450,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/indexes/media-objects/0.1.0/media-objects.ttl"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/indexes/media-objects/0.1.0/media-objects.ttl"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/indexes/media-objects/0.1.0/media-objects.ttl"
           },
           "dcat:mediaType": "text/turtle",
           "dct:format": "text/turtle"
@@ -477,7 +477,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/policies/media/0.1.0/media.jsonld"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/policies/media/0.1.0/media.jsonld"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/policies/media/0.1.0/media.jsonld"
           },
           "dcat:mediaType": "application/ld+json",
           "dct:format": "application/ld+json"
@@ -490,7 +490,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/policies/media/0.1.0/media.rdf.xml"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/policies/media/0.1.0/media.rdf.xml"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/policies/media/0.1.0/media.rdf.xml"
           },
           "dcat:mediaType": "application/rdf+xml",
           "dct:format": "application/rdf+xml"
@@ -503,7 +503,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/policies/media/0.1.0/media.ttl"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/policies/media/0.1.0/media.ttl"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/policies/media/0.1.0/media.ttl"
           },
           "dcat:mediaType": "text/turtle",
           "dct:format": "text/turtle"
@@ -530,7 +530,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/open-api/media-objects/0.1.0/media-objects.jsonld"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/open-api/media-objects/0.1.0/media-objects.jsonld"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/open-api/media-objects/0.1.0/media-objects.jsonld"
           },
           "dcat:mediaType": "application/ld+json",
           "dct:format": "application/ld+json"
@@ -543,7 +543,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/open-api/media-objects/0.1.0/media-objects.rdf.xml"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/open-api/media-objects/0.1.0/media-objects.rdf.xml"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/open-api/media-objects/0.1.0/media-objects.rdf.xml"
           },
           "dcat:mediaType": "application/rdf+xml",
           "dct:format": "application/rdf+xml"
@@ -556,7 +556,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/open-api/media-objects/0.1.0/media-objects.ttl"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/open-api/media-objects/0.1.0/media-objects.ttl"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/open-api/media-objects/0.1.0/media-objects.ttl"
           },
           "dcat:mediaType": "text/turtle",
           "dct:format": "text/turtle"
@@ -569,7 +569,7 @@
             "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tamis/open-api/media-objects/0.1.0/media-objects.yaml"
           },
           "dcat:downloadURL": {
-            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/8/merge/tamis/open-api/media-objects/0.1.0/media-objects.yaml"
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tamis/open-api/media-objects/0.1.0/media-objects.yaml"
           },
           "dcat:mediaType": "application/x-yaml",
           "dct:format": "application/x-yaml"

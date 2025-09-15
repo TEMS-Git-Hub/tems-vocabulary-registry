@@ -1,0 +1,15 @@
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix schema: <http://schema.org/> .
+@prefix tems: <https://w3id.org/tems/core#> .
+
+<https://w3id.org/tems/policies/media>
+    a odrl:Set ;
+    odrl:permission [
+        odrl:target tems:MediaObject ;
+        odrl:action odrl:use ;
+        odrl:constraint [
+            odrl:leftOperand odrl:spatial ;
+            odrl:operator odrl:eq ;
+            odrl:rightOperand "EU"
+        ]
+    ] .

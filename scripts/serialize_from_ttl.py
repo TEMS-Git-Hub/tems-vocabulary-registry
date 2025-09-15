@@ -1,29 +1,33 @@
 #!/usr/bin/env python3
 """
-Convert every *.ttl ontology into JSON-LD (*.jsonld) and RDF/XML (*.rdf.xml),
+Convert every *.ttl file into JSON-LD (*.jsonld) and RDF/XML (*.rdf.xml),
 side-by-side with the source .ttl.
 
-Scans:
-  tems/**/ontologies/**/*.ttl
-  tamis/**/ontologies/**/*.ttl
+Scans all TTL files in:
+  tems/**/*.ttl
+  tamis/**/*.ttl
 """
 import sys, pathlib
 from rdflib import Graph
 
 TTL_GLOBS = [
-    "tems/**/ontologies/**/*.ttl",
-    "tamis/**/ontologies/**/*.ttl",
+    "tems/**/*.ttl",
+    "tamis/**/*.ttl",
 ]
 
 # A compact context for nicer JSON-LD (adjust as you add prefixes)
 JSONLD_CONTEXT = {
   "@context": {
     "tems":   "https://w3id.org/tems/core#",
+    "tamis":  "https://w3id.org/tamis/core#",
     "schema": "http://schema.org/",
     "dct":    "http://purl.org/dc/terms/",
     "owl":    "http://www.w3.org/2002/07/owl#",
     "rdfs":   "http://www.w3.org/2000/01/rdf-schema#",
-    "xsd":    "http://www.w3.org/2001/XMLSchema#"
+    "xsd":    "http://www.w3.org/2001/XMLSchema#",
+    "sh":     "http://www.w3.org/ns/shacl#",
+    "odrl":   "http://www.w3.org/ns/odrl/2/",
+    "api":    "http://purl.org/linked-data/api/vocab#"
   }
 }
 
@@ -58,7 +62,7 @@ def main() -> int:
     files = sorted(p for p in files if p.is_file())
 
     if not files:
-        print("No ontology .ttl files found.")
+        print("No .ttl files found.")
         return 0
 
     for ttl in files:

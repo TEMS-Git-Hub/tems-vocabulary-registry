@@ -19,13 +19,13 @@ convert_file () {
   riot_cmd --output=rdfxml-abbrev "$ttl" > "${base}.rdf.xml"
 }
 
-files=( tems/**/ontologies/**/*.ttl tamis/**/ontologies/**/*.ttl )
+files=( tems/**/*.ttl tamis/**/*.ttl )
 if ((${#files[@]})); then
   for ttl in "${files[@]}"; do
     convert_file "$ttl"
   done
 else
-  echo "No ontology .ttl files found; nothing to serialize."
+  echo "No .ttl files found; nothing to serialize."
 fi
 
 echo "Done."

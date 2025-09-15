@@ -40,9 +40,9 @@ OUT = ROOT / "docs" / "catalog.jsonld"
 OUT.parent.mkdir(parents=True, exist_ok=True)
 
 DATA_SPACES = ["tems", "tamis"]
-SECTIONS = ["ontologies", "shapes", "indexes", "policies"]
+SECTIONS = ["ontologies", "shapes", "indexes", "policies", "open-api"]
 
-# MIME guess for RDF-ish files
+# MIME guess for RDF-ish files and OpenAPI
 MT_BY_EXT = {
     ".ttl": "text/turtle",
     ".jsonld": "application/ld+json",
@@ -51,6 +51,9 @@ MT_BY_EXT = {
     ".xml": "application/rdf+xml",
     ".n3": "text/n3",
     ".nt": "application/n-triples",
+    ".yaml": "application/x-yaml",
+    ".yml": "application/x-yaml",
+    ".json": "application/json",
 }
 
 def rel_to_url(rel_path: pathlib.Path) -> str:
@@ -78,14 +81,11 @@ def build_ontology_datasets(space_root: pathlib.Path, space_name: str):
 
     groups = defaultdict(list)
     for f in list_files(ont_root):
-        parts = f.relative_to(space_root).parts  # e.g. ('ontologies','core','V0.1.0','core.ttl')
-        if len(parts) < 3:  # must have at least ontologies/name/version/file
+        parts = f.relative_to(space_root).parts  # e.g. ('ontologies','core','0.1.0','core.ttl')
+        if len(parts) < 4:  # must have at least ontologies/name/version/file
             continue
         name = parts[1]
-        version = parts[2] if parts[2].lower().startswith("v") else None
-        if not version:
-            # allow non-versioned folders, group under version "—"
-            version = "—"
+        version = parts[2]  # version without V prefix
         groups[(name, version)].append(f)
 
     for (name, version), files in sorted(groups.items()):
@@ -124,26 +124,34 @@ def build_ontology_datasets(space_root: pathlib.Path, space_name: str):
 
 def build_single_file_datasets(space_root: pathlib.Path, space_name: str, section: str):
     """
-    For shapes / indexes / policies: one dataset per file.
+    For shapes / indexes / policies: group by {name}/{version}/ and create one dataset per group.
     """
     datasets = []
     sec_root = space_root / section
     if not sec_root.exists():
         return datasets
 
+    groups = defaultdict(list)
     for f in list_files(sec_root):
-        rel = f.relative_to(ROOT)
-        ext = f.suffix.lower()
-        mt = MT_BY_EXT.get(ext, "application/octet-stream")
-        name = f.stem
-        title = f"{space_name.upper()} {section[:-1]}: {name}"  # crude singular
-        datasets.append({
-            "@id": rel_to_url(f.relative_to(ROOT)),
-            "@type": "dcat:Dataset",
-            "dct:title": title,
-            "dct:identifier": f"{space_name}:{section}:{name}",
-            "dcat:keyword": [space_name, section, name],
-            "dcat:distribution": [{
+        parts = f.relative_to(space_root).parts  # e.g. ('shapes','media-objects','0.1.0','media-objects.jsonld')
+        if len(parts) < 4:  # must have at least section/name/version/file
+            continue
+        name = parts[1]
+        version = parts[2]
+        groups[(name, version)].append(f)
+
+    for (name, version), files in sorted(groups.items()):
+        # Dataset ID = folder URL (use first file's directory)
+        folder_rel = files[0].parent.relative_to(ROOT)
+        dataset_id = rel_to_url(folder_rel)
+        
+        title = f"{space_name.upper()} {section[:-1]}: {name} ({version})"
+        distributions = []
+        for f in sorted(files):
+            rel = f.relative_to(ROOT)
+            ext = f.suffix.lower()
+            mt = MT_BY_EXT.get(ext, "application/octet-stream")
+            distributions.append({
                 "@id": rel_to_url(rel),
                 "@type": "dcat:Distribution",
                 "dct:title": f.name,
@@ -151,7 +159,16 @@ def build_single_file_datasets(space_root: pathlib.Path, space_name: str, sectio
                 "dcat:downloadURL": {"@id": rel_to_raw(rel)},
                 "dcat:mediaType": mt,
                 "dct:format": mt,
-            }],
+            })
+        
+        datasets.append({
+            "@id": dataset_id,
+            "@type": "dcat:Dataset",
+            "dct:title": title,
+            "dct:identifier": f"{space_name}:{section}:{name}:{version}",
+            "dct:hasVersion": version,
+            "dcat:keyword": [space_name, section, name],
+            "dcat:distribution": distributions,
         })
     return datasets
 
@@ -166,7 +183,7 @@ def main():
         # ontologies grouped
         catalog_datasets.extend(build_ontology_datasets(space_root, space))
         # other sections per-file
-        for section in ("shapes", "indexes", "policies"):
+        for section in ("shapes", "indexes", "policies", "open-api"):
             catalog_datasets.extend(build_single_file_datasets(space_root, space, section))
 
     catalog = {

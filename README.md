@@ -125,12 +125,13 @@ sequenceDiagram
 
 ## Usage
 
-- Put ontology sources in Turtle under `*/ontologies/*/Vx.y.z/*.ttl`.
+- Put all source files in Turtle (TTL) format under `*/section/name/x.y.z/*.ttl`.
+- All sections (ontologies, shapes, indexes, policies, open-api) use TTL as source format.
 - CI will:
 
   1) validate TTL syntax (Apache Jena **riot**),
-  2) run **pySHACL** against shapes,
-  3) serialize **.ttl** → **.jsonld** and **.rdf.xml** next to the source,
+  2) run **pySHACL** validation using shapes TTL files,
+  3) serialize all **.ttl** → **.jsonld** and **.rdf.xml** next to the source,
   4) (optional) create a semver release,
   5) publish `public/` to GitHub Pages.
 
@@ -140,7 +141,7 @@ sequenceDiagram
 
 ```bash
 # Validate TTL
-docker run --rm -v "$PWD":/work stain/jena riot --validate /work/tems/ontologies/core/V0.1.0/core.ttl
+docker run --rm -v "$PWD":/work stain/jena riot --validate /work/tems/ontologies/core/0.1.0/core.ttl
 
 # Serialize (requires Apache Jena locally)
 ./scripts/serialize.sh

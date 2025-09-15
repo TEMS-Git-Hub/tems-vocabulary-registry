@@ -1,0 +1,161 @@
+openapi: 3.0.3
+info:
+  title: TEMS Media Objects API
+  description: OpenAPI specification for TEMS media objects management
+  version: 0.1.0
+  contact:
+    name: TEMS Team
+  license:
+    name: MIT
+servers:
+  - url: https://api.tems.example.com/v1
+    description: Production server
+paths:
+  /media-objects:
+    get:
+      summary: List media objects
+      description: Retrieve a list of media objects
+      operationId: listMediaObjects
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of items to return
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: offset
+          in: query
+          description: Number of items to skip
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaObjectList'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+    post:
+      summary: Create media object
+      description: Create a new media object
+      operationId: createMediaObject
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaObjectInput'
+      responses:
+        '201':
+          description: Created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaObject'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+  /media-objects/{id}:
+    get:
+      summary: Get media object
+      description: Retrieve a specific media object by ID
+      operationId: getMediaObject
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Media object identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaObject'
+        '404':
+          description: Media object not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    MediaObject:
+      type: object
+      required:
+        - id
+        - title
+        - type
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+        title:
+          type: string
+          description: Media object title
+        description:
+          type: string
+          description: Media object description
+        type:
+          type: string
+          enum: [image, video, audio, document]
+          description: Type of media object
+        url:
+          type: string
+          format: uri
+          description: URL to access the media object
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    MediaObjectInput:
+      type: object
+      required:
+        - title
+        - type
+      properties:
+        title:
+          type: string
+          description: Media object title
+        description:
+          type: string
+          description: Media object description
+        type:
+          type: string
+          enum: [image, video, audio, document]
+          description: Type of media object
+        url:
+          type: string
+          format: uri
+          description: URL to access the media object
+    MediaObjectList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaObject'
+        total:
+          type: integer
+          description: Total number of items
+        limit:
+          type: integer
+          description: Maximum number of items returned
+        offset:
+          type: integer
+          description: Number of items skipped

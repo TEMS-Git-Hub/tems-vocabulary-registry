@@ -1,0 +1,14 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix schema: <http://schema.org/> .
+@prefix tems: <https://w3id.org/tems/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/tems/shapes/MediaObjectShape>
+    a sh:NodeShape ;
+    sh:targetClass tems:MediaObject ;
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:message "MediaObject should have a schema:name (string)."
+    ] .

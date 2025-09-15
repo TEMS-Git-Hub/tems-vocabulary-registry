@@ -1,0 +1,15 @@
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix schema: <http://schema.org/> .
+@prefix tamis: <https://w3id.org/tamis/core#> .
+
+<https://w3id.org/tamis/policies/media>
+    a odrl:Set ;
+    odrl:permission [
+        odrl:target tamis:MediaObject ;
+        odrl:action odrl:use ;
+        odrl:constraint [
+            odrl:leftOperand odrl:spatial ;
+            odrl:operator odrl:eq ;
+            odrl:rightOperand "EU"
+        ]
+    ] .

@@ -13,8 +13,8 @@
   "type": "dcat:Catalog",
   "dct:title": "TEMS / TAMIS Vocabulary Registry",
   "dct:description": "DCAT catalog of ontologies, shapes, indexes, and policies published from this repository.",
-  "dct:issued": "2025-09-15T15:30:01Z",
-  "dct:modified": "2025-09-15T15:30:01Z",
+  "dct:issued": "2025-09-15T15:32:17Z",
+  "dct:modified": "2025-09-15T15:32:17Z",
   "dct:publisher": {
     "type": "foaf:Agent",
     "foaf:name": "TEMS project"

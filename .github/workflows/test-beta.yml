@@ -1,0 +1,148 @@
+name: Test Beta Branch - TTL-First Validation
+
+on:
+  push:
+    branches: [ beta ]
+  pull_request:
+    branches: [ beta ]
+  workflow_dispatch:
+
+# Basic permissions for testing
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyshacl rdflib rdflib-jsonld markdown
+
+      - name: List TTL files
+        run: |
+          echo "=== All TTL files found ==="
+          find tems tamis -name "*.ttl" | sort
+          echo
+          echo "=== TTL files by section ==="
+          echo "Ontologies:"
+          find tems tamis -path "*/ontologies/*" -name "*.ttl" | sort
+          echo "Shapes:"
+          find tems tamis -path "*/shapes/*" -name "*.ttl" | sort
+          echo "Indexes:"
+          find tems tamis -path "*/indexes/*" -name "*.ttl" | sort
+          echo "Policies:"
+          find tems tamis -path "*/policies/*" -name "*.ttl" | sort
+          echo "OpenAPI:"
+          find tems tamis -path "*/open-api/*" -name "*.ttl" | sort
+
+      - name: Validate RDF syntax (TTL) with riot (Docker)
+        run: |
+          set -e
+          echo "=== Validating TTL syntax with Apache Jena riot ==="
+          if find tems tamis -type f -name "*.ttl" | grep -q .; then
+            find tems tamis -type f -name "*.ttl" -print0 \
+              | xargs -0 -I{} docker run --rm \
+                  -v "$PWD":/rdf -w /rdf \
+                  stain/jena riot --validate "{}"
+            echo "✓ All TTL files are syntactically valid"
+          else
+            echo "No .ttl files found; skipping riot validation."
+            exit 1
+          fi
+
+      - name: SHACL validation
+        run: |
+          echo "=== Running SHACL validation ==="
+          python scripts/validate_shacl.py
+
+      - name: Test serialization (TTL → JSON-LD and RDF/XML)
+        run: |
+          echo "=== Testing TTL serialization ==="
+          python scripts/serialize_from_ttl.py
+
+      - name: Verify serialized files were created
+        run: |
+          echo "=== Verifying serialized files ==="
+          echo "JSON-LD files created:"
+          find tems tamis -name "*.jsonld" | sort
+          echo
+          echo "RDF/XML files created:"
+          find tems tamis -name "*.rdf.xml" | sort
+          echo
+          # Check that each TTL has corresponding serializations
+          echo "=== Checking TTL → JSON-LD/RDF-XML completeness ==="
+          for ttl in $(find tems tamis -name "*.ttl"); do
+            base="${ttl%.ttl}"
+            jsonld="${base}.jsonld"
+            rdfxml="${base}.rdf.xml"
+            if [[ -f "$jsonld" && -f "$rdfxml" ]]; then
+              echo "✓ $ttl → $jsonld, $rdfxml"
+            else
+              echo "✗ Missing serializations for $ttl"
+              [[ -f "$jsonld" ]] || echo "  Missing: $jsonld"
+              [[ -f "$rdfxml" ]] || echo "  Missing: $rdfxml"
+              exit 1
+            fi
+          done
+
+      - name: Test dataspace README generation
+        run: |
+          echo "=== Testing dataspace README generation ==="
+          python scripts/generate_dataspace_indexes.py
+
+      - name: Verify README updates
+        run: |
+          echo "=== Verifying README files ==="
+          echo "TEMS README content:"
+          cat tems/README.md
+          echo
+          echo "TAMIS README content:"
+          cat tamis/README.md
+
+      - name: Test site preparation
+        run: |
+          echo "=== Testing site preparation ==="
+          rm -rf public
+          mkdir -p public
+          cp -R tems tamis public/
+          # Copy README files
+          cp README.md public/ || true
+          cp tems/README.md public/tems/ || true
+          cp tamis/README.md public/tamis/ || true
+          python scripts/generate_site.py
+
+      - name: Test DCAT catalog generation
+        env:
+          PAGES_BASE_URL: https://test.github.io/test-repo
+          RAW_BASE_URL: https://raw.githubusercontent.com/test/test-repo/beta
+        run: |
+          echo "=== Testing DCAT catalog generation ==="
+          python scripts/generate_dcat_catalog.py
+          echo "Generated catalog:"
+          ls -la docs/
+          echo "Catalog content (first 50 lines):"
+          head -50 docs/catalog.jsonld
+
+      - name: Verify final structure
+        run: |
+          echo "=== Final directory structure ==="
+          echo "Source TTL files:"
+          find tems tamis -name "*.ttl" | wc -l
+          echo "Generated JSON-LD files:"
+          find tems tamis -name "*.jsonld" | wc -l  
+          echo "Generated RDF/XML files:"
+          find tems tamis -name "*.rdf.xml" | wc -l
+          echo "Public site structure:"
+          find public -type f | head -20
+          echo "Documents:"
+          ls -la docs/

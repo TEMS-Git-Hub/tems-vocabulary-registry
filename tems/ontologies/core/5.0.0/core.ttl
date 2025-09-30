@@ -1,0 +1,1758 @@
+@prefix tc: <http://tems.org/2024/temscore#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://tems.org/2024/temscore#> .
+
+<http://tems.org/2024/temscore#> rdf:type owl:Ontology ;
+                                  dcterms:creator "TEMS T2.3"@en ;
+                                  dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+                                  rdfs:comment "An ontology for the Trusted European Media Data Space"@en ;
+                                  rdfs:label "TEMSCore Ontology"@en ;
+                                  owl:versionInfo "5.0.0"@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://tems.org/2024/temscore#accessType
+tc:accessType rdf:type owl:ObjectProperty ;
+              rdfs:domain tc:Publication ;
+              rdfs:range skos:Concept ;
+              rdfs:comment "Access category for the publication (e.g., free, subscription, pay-per-view), modeled as a SKOS concept."@en ;
+              rdfs:label "access type"@en .
+
+
+###  http://tems.org/2024/temscore#contributionAgent
+tc:contributionAgent rdf:type owl:ObjectProperty ;
+                     rdfs:domain tc:Contribution ;
+                     rdfs:range tc:Agent ;
+                     rdfs:comment "Agent who contributed in this contribution."@en ;
+                     rdfs:label "contribution agent"@en .
+
+
+###  http://tems.org/2024/temscore#contributionRole
+tc:contributionRole rdf:type owl:ObjectProperty ;
+                    rdfs:domain tc:Contribution ;
+                    rdfs:range tc:Role ;
+                    rdfs:comment "Role performed in this contribution."@en ;
+                    rdfs:label "contribution role"@en .
+
+
+###  http://tems.org/2024/temscore#embeddings
+tc:embeddings rdf:type owl:ObjectProperty ;
+              rdfs:domain tc:Descriptor ;
+              rdfs:range rdf:List ;
+              rdfs:comment "A sequence of floating-point numbers representing the embeddings or vector representations of the content. The list's types will be validated via SHACL."@en ;
+              rdfs:label "embeddings"@en .
+
+
+###  http://tems.org/2024/temscore#evaluatesMediaObject
+tc:evaluatesMediaObject rdf:type owl:ObjectProperty ;
+                        rdfs:domain tc:MediaEvaluation ;
+                        rdfs:range tc:MediaObject ;
+                        rdfs:comment "Links the evaluation to the specific media object being evaluated."@en ;
+                        rdfs:label "evaluates media object"@en .
+
+
+###  http://tems.org/2024/temscore#has3DModelTechnicalMetadata
+tc:has3DModelTechnicalMetadata rdf:type owl:ObjectProperty ;
+                               owl:inverseOf tc:is3DModelTechnicalMetadataFor ;
+                               rdfs:domain tc:MediaInstance ;
+                               rdfs:range tc:ThreeDModelTechnicalMetadata ;
+                               rdfs:comment "Links 3D model content to its specific technical metadata."@en ;
+                               rdfs:label "has 3d model technical metadata"@en .
+
+
+###  http://tems.org/2024/temscore#hasAudioTechnicalMetadata
+tc:hasAudioTechnicalMetadata rdf:type owl:ObjectProperty ;
+                             owl:inverseOf tc:isAudioTechnicalMetadataFor ;
+                             rdfs:domain tc:MediaInstance ;
+                             rdfs:range tc:AudioTechnicalMetadata ;
+                             rdfs:comment "Links audio content to its specific technical metadata."@en ;
+                             rdfs:label "has audio technical metadata"@en .
+
+
+###  http://tems.org/2024/temscore#hasCanonicalVersion
+tc:hasCanonicalVersion rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf tc:hasVersion ;
+                       rdfs:domain tc:MediaWork ;
+                       rdfs:range tc:MediaObject ;
+                       rdfs:comment "Points from a MediaWork to its canonical/reference MediaObject (if one is designated)."@en ;
+                       rdfs:label "has canonical version"@en .
+
+
+###  http://tems.org/2024/temscore#hasChapter
+tc:hasChapter rdf:type owl:ObjectProperty ;
+              rdfs:domain tc:ContentDescription ;
+              rdfs:range tc:Chapter ;
+              rdfs:comment "Links a content description or descriptor to one or more chapters."@en ;
+              rdfs:label "has chapter"@en .
+
+
+###  http://tems.org/2024/temscore#hasConcept
+tc:hasConcept rdf:type owl:ObjectProperty ;
+              rdfs:domain tc:ContentDescription ;
+              rdfs:range tc:Concept ;
+              rdfs:comment "Associates the content with tags or categories."@en ;
+              rdfs:label "has concept"@en .
+
+
+###  http://tems.org/2024/temscore#hasConsumption
+tc:hasConsumption rdf:type owl:ObjectProperty ;
+                  owl:inverseOf tc:isConsumptionOf ;
+                  rdfs:domain tc:MediaInstance ;
+                  rdfs:range tc:Consumption ;
+                  rdfs:comment "Links media instance to the consumption events associated with it."@en ;
+                  rdfs:label "has consumption"@en .
+
+
+###  http://tems.org/2024/temscore#hasContribution
+tc:hasContribution rdf:type owl:ObjectProperty ;
+                   owl:inverseOf tc:isContributionFor ;
+                   rdfs:domain tc:MediaObject ;
+                   rdfs:range tc:Contribution ;
+                   rdfs:comment "Links a media object to a reified contribution (agent+role assignment)."@en ;
+                   rdfs:label "has contribution"@en .
+
+
+###  http://tems.org/2024/temscore#hasDescription
+tc:hasDescription rdf:type owl:ObjectProperty ;
+                  owl:inverseOf tc:isDescriptionOf ;
+                  rdfs:domain tc:MediaObject ;
+                  rdfs:range tc:ContentDescription ;
+                  rdfs:comment "Links media object to its content description."@en ;
+                  rdfs:label "has description"@en .
+
+
+###  http://tems.org/2024/temscore#hasDescriptor
+tc:hasDescriptor rdf:type owl:ObjectProperty ;
+                 owl:inverseOf tc:isDescriptorOf ;
+                 rdfs:domain tc:ContentDescription ;
+                 rdfs:range tc:Descriptor ;
+                 rdfs:comment "Links a content description to one or more descriptors for agent-dependent fields."@en ;
+                 rdfs:label "has descriptor"@en .
+
+
+###  http://tems.org/2024/temscore#hasEvaluationContributor
+tc:hasEvaluationContributor rdf:type owl:ObjectProperty ;
+                            rdfs:domain tc:MediaEvaluation ;
+                            rdfs:range tc:Agent ;
+                            rdfs:comment "Links media evaluation to contributors involved in fact-checking."@en ;
+                            rdfs:label "has evaluation contributor"@en .
+
+
+###  http://tems.org/2024/temscore#hasEvaluator
+tc:hasEvaluator rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf tc:hasEvaluationContributor ;
+                owl:inverseOf tc:isEvaluatorOf ;
+                rdfs:domain tc:MediaEvaluation ;
+                rdfs:range tc:Agent ;
+                rdfs:comment "Links a media evaluation to the fact-checking agent that performed the evaluation."@en ;
+                rdfs:label "has evaluator"@en .
+
+
+###  http://tems.org/2024/temscore#hasEvent
+tc:hasEvent rdf:type owl:ObjectProperty ;
+            owl:inverseOf tc:isEventFor ;
+            rdfs:domain owl:Thing ;
+            rdfs:range tc:Event ;
+            rdfs:comment "Links an entity, such as media object or publication, to an event."@en ;
+            rdfs:label "has event"@en .
+
+
+###  http://tems.org/2024/temscore#hasEventOrganizer
+tc:hasEventOrganizer rdf:type owl:ObjectProperty ;
+                     rdfs:domain tc:Event ;
+                     rdfs:range tc:Agent ;
+                     rdfs:comment "Links an event to the agent (person, organization, or tool) responsible for organizing it."@en ;
+                     rdfs:label "has event organizer"@en .
+
+
+###  http://tems.org/2024/temscore#hasEventType
+tc:hasEventType rdf:type owl:ObjectProperty ;
+                rdfs:domain tc:Event ;
+                rdfs:range skos:Concept ;
+                rdfs:comment "Links the event to a SKOS concept representing its type or category (e.g., political, social, entertainment)."@en ;
+                rdfs:label "has event type"@en .
+
+
+###  http://tems.org/2024/temscore#hasGenre
+tc:hasGenre rdf:type owl:ObjectProperty ;
+            rdfs:domain tc:ContentDescription ;
+            rdfs:range skos:Concept ;
+            rdfs:comment "Genre/type linked to an external concept (e.g., IPTC genre, ISAN Work Type)."@en ;
+            rdfs:label "has genre"@en .
+
+
+###  http://tems.org/2024/temscore#hasGrouping
+tc:hasGrouping rdf:type owl:ObjectProperty ;
+               owl:inverseOf tc:isGroupingOf ;
+               rdfs:domain tc:MediaObject ;
+               rdfs:range tc:ContentGrouping ;
+               rdfs:comment "Associates media object with a content grouping that categorizes or organizes it."@en ;
+               rdfs:label "has grouping"@en .
+
+
+###  http://tems.org/2024/temscore#hasIdentifier
+tc:hasIdentifier rdf:type owl:ObjectProperty ;
+                 owl:inverseOf tc:isIdentifierOf ;
+                 rdfs:range tc:Identifier ;
+                 rdfs:comment "Associates a resource with one of its identifiers."@en ;
+                 rdfs:label "has identifier"@en .
+
+
+###  http://tems.org/2024/temscore#hasImageTechnicalMetadata
+tc:hasImageTechnicalMetadata rdf:type owl:ObjectProperty ;
+                             owl:inverseOf tc:isImageTechnicalMetadataFor ;
+                             rdfs:domain tc:MediaInstance ;
+                             rdfs:range tc:ImageTechnicalMetadata ;
+                             rdfs:comment "Links image content to its specific technical metadata."@en ;
+                             rdfs:label "has image technical metadata"@en .
+
+
+###  http://tems.org/2024/temscore#hasInstance
+tc:hasInstance rdf:type owl:ObjectProperty ;
+               owl:inverseOf tc:isInstanceOf ;
+               rdfs:domain tc:MediaObject ;
+               rdfs:range tc:MediaInstance ;
+               rdfs:comment "Indicates that a MediaObject has a specific MediaInstance."@en ;
+               rdfs:label "has instance"@en .
+
+
+###  http://tems.org/2024/temscore#hasIntendedAudience
+tc:hasIntendedAudience rdf:type owl:ObjectProperty ;
+                       rdfs:domain tc:MediaObject ;
+                       rdfs:range tc:TargetAudience ;
+                       rdfs:comment "Editorially intended audience for the media object (default audience independent of channel/publication). A publication may override this via hasTargetAudience."@en ;
+                       rdfs:label "has intended audience"@en .
+
+
+###  http://tems.org/2024/temscore#hasLocation
+tc:hasLocation rdf:type owl:ObjectProperty ;
+               rdfs:domain owl:Thing ;
+               rdfs:range tc:Location ;
+               rdfs:comment "Links an entity, such as media object or an agent, to its geographic location."@en ;
+               rdfs:label "has location"@en .
+
+
+###  http://tems.org/2024/temscore#hasProductionEvent
+tc:hasProductionEvent rdf:type owl:ObjectProperty ;
+                      rdfs:domain tc:ProductionJob ;
+                      rdfs:range tc:Event ;
+                      rdfs:comment "Links the ProductionJob to a related event in the production process."@en ;
+                      rdfs:label "has production event"@en .
+
+
+###  http://tems.org/2024/temscore#hasProductionJobContributor
+tc:hasProductionJobContributor rdf:type owl:ObjectProperty ;
+                               rdfs:domain tc:ProductionJob ;
+                               rdfs:range tc:Contributors ;
+                               rdfs:comment "Links the ProductionJob to a contributor involved in the production, along with their role."@en ;
+                               rdfs:label "has production job contributor"@en .
+
+
+###  http://tems.org/2024/temscore#hasProvenance
+tc:hasProvenance rdf:type owl:ObjectProperty ;
+                 owl:inverseOf tc:isProvenanceFor ;
+                 rdfs:domain tc:MediaObject ;
+                 rdfs:range tc:Provenance ;
+                 rdfs:comment "Links media object to its provenance details."@en ;
+                 rdfs:label "has provenance"@en .
+
+
+###  http://tems.org/2024/temscore#hasPublication
+tc:hasPublication rdf:type owl:ObjectProperty ;
+                  owl:inverseOf tc:isPublicationOf ;
+                  rdfs:domain tc:MediaInstance ;
+                  rdfs:range tc:Publication ;
+                  rdfs:comment "Links media instance to its publication details."@en ;
+                  rdfs:label "has publication"@en .
+
+
+###  http://tems.org/2024/temscore#hasPublisher
+tc:hasPublisher rdf:type owl:ObjectProperty ;
+                owl:inverseOf tc:isPublisherOf ;
+                rdfs:domain tc:Publication ;
+                rdfs:range tc:Agent ;
+                rdfs:comment "Links a publication to its publisher."@en ;
+                rdfs:label "has publisher"@en .
+
+
+###  http://tems.org/2024/temscore#hasRights
+tc:hasRights rdf:type owl:ObjectProperty ;
+             owl:inverseOf tc:isRightsOf ;
+             rdfs:domain tc:MediaObject ;
+             rdfs:range tc:Rights ;
+             rdfs:comment "Links media object to its rights information."@en ;
+             rdfs:label "has rights"@en .
+
+
+###  http://tems.org/2024/temscore#hasSegment
+tc:hasSegment rdf:type owl:ObjectProperty ;
+              owl:inverseOf tc:isSegmentOf ;
+              rdfs:domain tc:OrderedSegment ;
+              rdfs:range tc:MediaObject ;
+              rdfs:comment "Links an OrderedSegment to a specific media object segment (e.g., video, audio, etc.)."@en ;
+              rdfs:label "has segment"@en .
+
+
+###  http://tems.org/2024/temscore#hasSegmentType
+tc:hasSegmentType rdf:type owl:ObjectProperty ;
+                  rdfs:domain tc:OrderedSegment ;
+                  rdfs:range skos:Concept ;
+                  rdfs:comment "Links an OrderedSegment to a segment type concept (e.g., Article, Image)."@en ;
+                  rdfs:label "has segment type"@en .
+
+
+###  http://tems.org/2024/temscore#hasTargetAudience
+tc:hasTargetAudience rdf:type owl:ObjectProperty ;
+                     owl:inverseOf tc:isTargetAudienceFor ;
+                     rdfs:domain tc:Publication ;
+                     rdfs:range tc:TargetAudience ;
+                     rdfs:comment "Links the publication to its target audience."@en ;
+                     rdfs:label "has target audience"@en .
+
+
+###  http://tems.org/2024/temscore#hasTechnicalMetadata
+tc:hasTechnicalMetadata rdf:type owl:ObjectProperty ;
+                        owl:inverseOf tc:isTechnicalMetadataFor ;
+                        rdfs:domain tc:MediaInstance ;
+                        rdfs:range tc:TechnicalMetadata ;
+                        rdfs:comment "Links the MediaInstance to its specific technical metadata."@en ;
+                        rdfs:label "has technical metadata"@en .
+
+
+###  http://tems.org/2024/temscore#hasTextTrackTechnicalMetadata
+tc:hasTextTrackTechnicalMetadata rdf:type owl:ObjectProperty ;
+                                 owl:inverseOf tc:isTextTrackTechnicalMetadataFor ;
+                                 rdfs:domain tc:MediaInstance ;
+                                 rdfs:range tc:TextTrackTechnicalMetadata ;
+                                 rdfs:comment "Links media instance to its subtitle/caption technical metadata."@en ;
+                                 rdfs:label "has text track technical metadata"@en .
+
+
+###  http://tems.org/2024/temscore#hasTitle
+tc:hasTitle rdf:type owl:ObjectProperty ;
+            rdfs:domain tc:MediaObject ;
+            rdfs:range tc:Title ;
+            rdfs:comment "Links a media object to one or more title variants."@en ;
+            rdfs:label "has title"@en .
+
+
+###  http://tems.org/2024/temscore#hasVersion
+tc:hasVersion rdf:type owl:ObjectProperty ;
+              owl:inverseOf tc:isVersionOf ;
+              rdfs:domain tc:MediaWork ;
+              rdfs:range tc:MediaObject ;
+              rdfs:comment "Relates a MediaWork to one of its editorial versions (tc:MediaObject)."@en ;
+              rdfs:label "has version"@en .
+
+
+###  http://tems.org/2024/temscore#hasVideoTechnicalMetadata
+tc:hasVideoTechnicalMetadata rdf:type owl:ObjectProperty ;
+                             owl:inverseOf tc:isVideoTechnicalMetadataFor ;
+                             rdfs:domain tc:MediaInstance ;
+                             rdfs:range tc:VideoTechnicalMetadata ;
+                             rdfs:comment "Links video content to its specific technical metadata."@en ;
+                             rdfs:label "has video technical metadata"@en .
+
+
+###  http://tems.org/2024/temscore#holdsRightsFor
+tc:holdsRightsFor rdf:type owl:ObjectProperty ;
+                  owl:inverseOf tc:isHeldBy ;
+                  rdfs:domain tc:Agent ;
+                  rdfs:range tc:Rights ;
+                  rdfs:comment "Indicates that an agent holds the rights for specific content."@en ;
+                  rdfs:label "holds rights for"@en .
+
+
+###  http://tems.org/2024/temscore#identifierScheme
+tc:identifierScheme rdf:type owl:ObjectProperty ;
+                    rdfs:domain tc:Identifier ;
+                    rdfs:range skos:Concept ;
+                    rdfs:comment "Scheme or registry of the identifier (e.g., DOI, ISAN, ISRC), modeled as a SKOS concept."@en ;
+                    rdfs:label "identifier scheme"@en .
+
+
+###  http://tems.org/2024/temscore#identifierType
+tc:identifierType rdf:type owl:ObjectProperty ;
+                  rdfs:domain tc:Identifier ;
+                  rdfs:range skos:Concept ;
+                  rdfs:comment "Type/category of the identifier value within a scheme (e.g., 'Print ISSN', 'Online ISSN'), modeled as a SKOS concept."@en ;
+                  rdfs:label "identifier type"@en .
+
+
+###  http://tems.org/2024/temscore#is3DModelTechnicalMetadataFor
+tc:is3DModelTechnicalMetadataFor rdf:type owl:ObjectProperty ;
+                                 rdfs:domain tc:ThreeDModelTechnicalMetadata ;
+                                 rdfs:range tc:MediaInstance ;
+                                 rdfs:comment "Links 3D model technical metadata to the 3D model content it describes."@en ;
+                                 rdfs:label "is 3d model technical metadata for"@en .
+
+
+###  http://tems.org/2024/temscore#isAudioTechnicalMetadataFor
+tc:isAudioTechnicalMetadataFor rdf:type owl:ObjectProperty ;
+                               rdfs:domain tc:AudioTechnicalMetadata ;
+                               rdfs:range tc:MediaInstance ;
+                               rdfs:comment "Links audio technical metadata to the audio content it describes."@en ;
+                               rdfs:label "is audio technical metadata for"@en .
+
+
+###  http://tems.org/2024/temscore#isBasedOnPublication
+tc:isBasedOnPublication rdf:type owl:ObjectProperty ;
+                        owl:inverseOf tc:isBasisForConsumption ;
+                        rdfs:domain tc:Consumption ;
+                        rdfs:range tc:Publication ;
+                        rdfs:comment "Links the consumption of media object to the publication it is based on."@en ;
+                        rdfs:label "is based on publication"@en .
+
+
+###  http://tems.org/2024/temscore#isBasisForConsumption
+tc:isBasisForConsumption rdf:type owl:ObjectProperty ;
+                         rdfs:domain tc:Publication ;
+                         rdfs:range tc:Consumption ;
+                         rdfs:comment "Indicates that a publication serves as the basis for a consumption record."@en ;
+                         rdfs:label "is basis for consumption"@en .
+
+
+###  http://tems.org/2024/temscore#isConsumptionOf
+tc:isConsumptionOf rdf:type owl:ObjectProperty ;
+                   rdfs:domain tc:Consumption ;
+                   rdfs:range tc:MediaInstance ;
+                   rdfs:comment "Indicates that a consumption record is associated with a media instance."@en ;
+                   rdfs:label "is consumption of"@en .
+
+
+###  http://tems.org/2024/temscore#isContributionFor
+tc:isContributionFor rdf:type owl:ObjectProperty ;
+                     rdfs:domain tc:Contribution ;
+                     rdfs:range tc:MediaObject ;
+                     rdfs:comment "Inverse: the contribution belongs to a specific media object."@en ;
+                     rdfs:label "is contribution for"@en .
+
+
+###  http://tems.org/2024/temscore#isDescribedBy
+tc:isDescribedBy rdf:type owl:ObjectProperty ;
+                 owl:inverseOf tc:performsDescription ;
+                 rdfs:domain tc:Descriptor ;
+                 rdfs:range tc:Agent ;
+                 rdfs:comment "Links a descriptor to the agent who performed the description."@en ;
+                 rdfs:label "is described by"@en .
+
+
+###  http://tems.org/2024/temscore#isDescriptionOf
+tc:isDescriptionOf rdf:type owl:ObjectProperty ;
+                   rdfs:domain tc:ContentDescription ;
+                   rdfs:range tc:MediaObject ;
+                   rdfs:comment "Indicates that a content description is associated with the media object it describes."@en ;
+                   rdfs:label "is description of"@en .
+
+
+###  http://tems.org/2024/temscore#isDescriptorOf
+tc:isDescriptorOf rdf:type owl:ObjectProperty ;
+                  rdfs:domain tc:Descriptor ;
+                  rdfs:range tc:ContentDescription ;
+                  rdfs:comment "Indicates that a descriptor is part of or belongs to a specific content description."@en ;
+                  rdfs:label "is descriptor of"@en .
+
+
+###  http://tems.org/2024/temscore#isEvaluatorOf
+tc:isEvaluatorOf rdf:type owl:ObjectProperty ;
+                 rdfs:domain tc:Agent ;
+                 rdfs:range tc:MediaEvaluation ;
+                 rdfs:comment "Indicates that an agent is the evaluator for a media evaluation."@en ;
+                 rdfs:label "is evaluator of"@en .
+
+
+###  http://tems.org/2024/temscore#isEventFor
+tc:isEventFor rdf:type owl:ObjectProperty ;
+              rdfs:domain tc:Event ;
+              rdfs:range owl:Thing ;
+              rdfs:comment "Indicates that an event is associated with a specific entity, such as media object or publication."@en ;
+              rdfs:label "is event for"@en .
+
+
+###  http://tems.org/2024/temscore#isGroupingOf
+tc:isGroupingOf rdf:type owl:ObjectProperty ;
+                rdfs:domain tc:ContentGrouping ;
+                rdfs:range tc:MediaObject ;
+                rdfs:comment "Indicates that the content grouping categorizes or organizes specific media object."@en ;
+                rdfs:label "is grouping of"@en .
+
+
+###  http://tems.org/2024/temscore#isHeldBy
+tc:isHeldBy rdf:type owl:ObjectProperty ;
+            rdfs:domain tc:Rights ;
+            rdfs:range tc:Agent ;
+            rdfs:comment "Indicates that the rights are held by a specific agent."@en ;
+            rdfs:label "is held by"@en .
+
+
+###  http://tems.org/2024/temscore#isIdentifierOf
+tc:isIdentifierOf rdf:type owl:ObjectProperty ;
+                  rdfs:domain tc:Identifier ;
+                  rdfs:range owl:Thing ;
+                  rdfs:comment "Inverse of has identifier."@en ;
+                  rdfs:label "is identifier of"@en .
+
+
+###  http://tems.org/2024/temscore#isImageTechnicalMetadataFor
+tc:isImageTechnicalMetadataFor rdf:type owl:ObjectProperty ;
+                               rdfs:domain tc:ImageTechnicalMetadata ;
+                               rdfs:range tc:MediaInstance ;
+                               rdfs:comment "Links image technical metadata to the image content it describes."@en ;
+                               rdfs:label "is image technical metadata for"@en .
+
+
+###  http://tems.org/2024/temscore#isInstanceOf
+tc:isInstanceOf rdf:type owl:ObjectProperty ;
+                rdfs:domain tc:MediaInstance ;
+                rdfs:range tc:MediaObject ;
+                rdfs:comment "Links a MediaInstance to the MediaObject it represents."@en ;
+                rdfs:label "is instance of"@en .
+
+
+###  http://tems.org/2024/temscore#isProvenanceFor
+tc:isProvenanceFor rdf:type owl:ObjectProperty ;
+                   rdfs:domain tc:Provenance ;
+                   rdfs:range tc:MediaObject ;
+                   rdfs:comment "Indicates that this provenance information is relevant for one or more media object items."@en ;
+                   rdfs:label "is provenance for"@en .
+
+
+###  http://tems.org/2024/temscore#isPublicationOf
+tc:isPublicationOf rdf:type owl:ObjectProperty ;
+                   rdfs:domain tc:Publication ;
+                   rdfs:range tc:MediaInstance ;
+                   rdfs:comment "Indicates that the publication is associated with specific media instance."@en ;
+                   rdfs:label "is publication of"@en .
+
+
+###  http://tems.org/2024/temscore#isPublisherOf
+tc:isPublisherOf rdf:type owl:ObjectProperty ;
+                 rdfs:domain tc:Agent ;
+                 rdfs:range tc:Publication ;
+                 rdfs:comment "Indicates that the agent is the publisher of a specific publication."@en ;
+                 rdfs:label "is publisher of"@en .
+
+
+###  http://tems.org/2024/temscore#isRightsOf
+tc:isRightsOf rdf:type owl:ObjectProperty ;
+              rdfs:domain tc:Rights ;
+              rdfs:range tc:MediaObject ;
+              rdfs:comment "Indicates that the rights are associated with specific media object."@en ;
+              rdfs:label "is rights of"@en .
+
+
+###  http://tems.org/2024/temscore#isSegmentOf
+tc:isSegmentOf rdf:type owl:ObjectProperty ;
+               rdfs:domain tc:MediaObject ;
+               rdfs:range tc:OrderedSegment ;
+               rdfs:comment "Indicates that a MediaObject is part of an OrderedSegment."@en ;
+               rdfs:label "is segment of"@en .
+
+
+###  http://tems.org/2024/temscore#isTargetAudienceFor
+tc:isTargetAudienceFor rdf:type owl:ObjectProperty ;
+                       rdfs:domain tc:TargetAudience ;
+                       rdfs:range tc:Publication ;
+                       rdfs:comment "Indicates that the target audience is the intended audience for specific publications."@en ;
+                       rdfs:label "is target audience for"@en .
+
+
+###  http://tems.org/2024/temscore#isTechnicalMetadataFor
+tc:isTechnicalMetadataFor rdf:type owl:ObjectProperty ;
+                          rdfs:domain tc:TechnicalMetadata ;
+                          rdfs:range tc:MediaInstance ;
+                          rdfs:comment "Links technical metadata to the media object it describes."@en ;
+                          rdfs:label "is technical metadata for"@en .
+
+
+###  http://tems.org/2024/temscore#isTextTrackTechnicalMetadataFor
+tc:isTextTrackTechnicalMetadataFor rdf:type owl:ObjectProperty ;
+                                   rdfs:domain tc:TextTrackTechnicalMetadata ;
+                                   rdfs:range tc:MediaInstance ;
+                                   rdfs:comment "Links subtitle/caption technical metadata to the media instance it describes."@en ;
+                                   rdfs:label "is text track technical metadata for"@en .
+
+
+###  http://tems.org/2024/temscore#isVersionOf
+tc:isVersionOf rdf:type owl:ObjectProperty ;
+               rdfs:domain tc:MediaObject ;
+               rdfs:range tc:MediaWork ;
+               rdfs:comment "Relates an editorial version (tc:MediaObject) to its parent MediaWork."@en ;
+               rdfs:label "is version of"@en .
+
+
+###  http://tems.org/2024/temscore#isVideoTechnicalMetadataFor
+tc:isVideoTechnicalMetadataFor rdf:type owl:ObjectProperty ;
+                               rdfs:domain tc:VideoTechnicalMetadata ;
+                               rdfs:range tc:MediaInstance ;
+                               rdfs:comment "Links video technical metadata to the video content it describes."@en ;
+                               rdfs:label "is video technical metadata for"@en .
+
+
+###  http://tems.org/2024/temscore#issuedBy
+tc:issuedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain tc:Identifier ;
+            rdfs:range tc:Agent ;
+            rdfs:comment "Agent that issued or manages the identifier (e.g., Crossref)."@en ;
+            rdfs:label "issued by"@en .
+
+
+###  http://tems.org/2024/temscore#monetizationModel
+tc:monetizationModel rdf:type owl:ObjectProperty ;
+                     rdfs:domain tc:Publication ;
+                     rdfs:range skos:Concept ;
+                     rdfs:comment "Monetization model applied to the publication (e.g., ads, membership, sponsorship)."@en ;
+                     rdfs:label "monetization model"@en .
+
+
+###  http://tems.org/2024/temscore#performsDescription
+tc:performsDescription rdf:type owl:ObjectProperty ;
+                       rdfs:domain tc:Agent ;
+                       rdfs:range tc:Descriptor ;
+                       rdfs:comment "Indicates that an agent performs the creation of the descriptor."@en ;
+                       rdfs:label "performs description"@en .
+
+
+###  http://tems.org/2024/temscore#producesMediaInstance
+tc:producesMediaInstance rdf:type owl:ObjectProperty ;
+                         rdfs:domain tc:ProductionJob ;
+                         rdfs:range tc:MediaInstance ;
+                         rdfs:comment "Indicates that the ProductionJob results in the creation of a MediaInstance."@en ;
+                         rdfs:label "produces media instance"@en .
+
+
+###  http://tems.org/2024/temscore#producesMediaObject
+tc:producesMediaObject rdf:type owl:ObjectProperty ;
+                       rdfs:domain tc:ProductionJob ;
+                       rdfs:range tc:MediaObject ;
+                       rdfs:comment "Indicates that the ProductionJob is responsible for generating media object."@en ;
+                       rdfs:label "produces media object"@en .
+
+
+###  http://tems.org/2024/temscore#roleConcept
+tc:roleConcept rdf:type owl:ObjectProperty ;
+               rdfs:domain tc:Role ;
+               rdfs:range skos:Concept ;
+               rdfs:comment "Links the role instance to a SKOS concept for standardization."@en ;
+               rdfs:label "role concept"@en .
+
+
+###  http://tems.org/2024/temscore#rolePeriod
+tc:rolePeriod rdf:type owl:ObjectProperty ;
+              rdfs:domain tc:Role ;
+              rdfs:range time:TemporalEntity ;
+              rdfs:comment "Specifies the time period during which the agent performed the role."@en ;
+              rdfs:label "role period"@en .
+
+
+###  http://tems.org/2024/temscore#textKind
+tc:textKind rdf:type owl:ObjectProperty ;
+            rdfs:domain tc:TextTrackTechnicalMetadata ;
+            rdfs:range skos:Concept ;
+            rdfs:comment "Kind of text track (subtitle, caption, SDH, forced)."@en ;
+            rdfs:label "text kind"@en .
+
+
+###  http://tems.org/2024/temscore#titleKind
+tc:titleKind rdf:type owl:ObjectProperty ;
+             rdfs:domain tc:Title ;
+             rdfs:range skos:Concept ;
+             rdfs:comment "Kind of title (e.g., original, alternative), modeled as a SKOS concept."@en ;
+             rdfs:label "title kind"@en .
+
+
+###  http://tems.org/2024/temscore#translatedLanguages
+tc:translatedLanguages rdf:type owl:ObjectProperty ;
+                       rdfs:domain tc:MediaObject ;
+                       rdfs:range rdf:List ;
+                       rdfs:comment "Represents the list of languages into which the media object is available, which differ from the original language."@en ;
+                       rdfs:label "translated languages"@en .
+
+
+###  http://tems.org/2024/temscore#usesProductionDevice
+tc:usesProductionDevice rdf:type owl:ObjectProperty ;
+                        rdfs:domain tc:ProductionJob ;
+                        rdfs:range tc:ProductionDevice ;
+                        rdfs:comment "Links the ProductionJob to a device or tool used during the production process."@en ;
+                        rdfs:label "uses production device"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://tems.org/2024/temscore#audienceData
+tc:audienceData rdf:type owl:DatatypeProperty ;
+                rdfs:domain tc:Consumption ;
+                rdfs:range rdfs:Literal ;
+                rdfs:comment "Demographic or segmentation data related to the audience consuming the content."@en ;
+                rdfs:label "audience data"@en .
+
+
+###  http://tems.org/2024/temscore#audioCodec
+tc:audioCodec rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:AudioTechnicalMetadata ;
+              rdfs:range rdfs:Literal ;
+              rdfs:comment "The audio codec used to encode the audio content (e.g., AAC, MP3)."@en ;
+              rdfs:label "audio codec"@en .
+
+
+###  http://tems.org/2024/temscore#audioStreamIndex
+tc:audioStreamIndex rdf:type owl:DatatypeProperty ;
+                    rdfs:domain tc:AudioTechnicalMetadata ;
+                    rdfs:range xsd:nonNegativeInteger ;
+                    rdfs:comment "The index of the audio stream in the MediaInstance."@en ;
+                    rdfs:label "audio stream index"@en .
+
+
+###  http://tems.org/2024/temscore#averageTimeSpent
+tc:averageTimeSpent rdf:type owl:DatatypeProperty ;
+                    rdfs:domain tc:Consumption ;
+                    rdfs:range xsd:decimal ;
+                    rdfs:comment "The average amount of time spent by users on the media object (in seconds)."@en ;
+                    rdfs:label "average time spent"@en .
+
+
+###  http://tems.org/2024/temscore#bitRate
+tc:bitRate rdf:type owl:DatatypeProperty ;
+           rdfs:domain tc:AudioTechnicalMetadata ;
+           rdfs:range xsd:decimal ;
+           rdfs:comment "The bit rate of the audio content in kilobits per second (e.g., 320kbps)."@en ;
+           rdfs:label "bit rate"@en .
+
+
+###  http://tems.org/2024/temscore#c2paIdentifier
+tc:c2paIdentifier rdf:type owl:DatatypeProperty ;
+                  rdfs:domain tc:MediaInstance ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "C2PA digital identifier associated with the media instance."@en ;
+                  rdfs:label "c2pa identifier"@en .
+
+
+###  http://tems.org/2024/temscore#channel
+tc:channel rdf:type owl:DatatypeProperty ;
+           rdfs:domain tc:Publication ;
+           rdfs:range xsd:string ;
+           rdfs:comment "The specific channel or outlet where the media instance is distributed (e.g., TV channel, social media account, website section)."@en ;
+           rdfs:label "distribution channel"@en .
+
+
+###  http://tems.org/2024/temscore#channelCount
+tc:channelCount rdf:type owl:DatatypeProperty ;
+                rdfs:domain tc:AudioTechnicalMetadata ;
+                rdfs:range xsd:nonNegativeInteger ;
+                rdfs:comment "The number of channel of the audio content."@en ;
+                rdfs:label "channel count"@en .
+
+
+###  http://tems.org/2024/temscore#chapterStart
+tc:chapterStart rdf:type owl:DatatypeProperty ;
+                rdfs:domain tc:Chapter ;
+                rdfs:range rdfs:Literal ;
+                rdfs:comment "The start point of the chapter, which could be a timestamp for video or a page number for text."@en ;
+                rdfs:label "chapter start"@en .
+
+
+###  http://tems.org/2024/temscore#chapterStop
+tc:chapterStop rdf:type owl:DatatypeProperty ;
+               rdfs:domain tc:Chapter ;
+               rdfs:range rdfs:Literal ;
+               rdfs:comment "The stop point of the chapter, which could be a timestamp for video or a page number for text."@en ;
+               rdfs:label "chapter stop"@en .
+
+
+###  http://tems.org/2024/temscore#chapterTitle
+tc:chapterTitle rdf:type owl:DatatypeProperty ;
+                rdfs:domain tc:Chapter ;
+                rdfs:range rdfs:Literal ;
+                rdfs:comment "The title of the chapter."@en ;
+                rdfs:label "chapter title"@en .
+
+
+###  http://tems.org/2024/temscore#checksum
+tc:checksum rdf:type owl:DatatypeProperty ;
+            rdfs:domain tc:MediaInstance ;
+            rdfs:range xsd:string ;
+            rdfs:comment "A checksum or hash value used to verify the integrity of the media instance."@en ;
+            rdfs:label "checksum"@en .
+
+
+###  http://tems.org/2024/temscore#city
+tc:city rdf:type owl:DatatypeProperty ;
+        rdfs:domain tc:Location ;
+        rdfs:range xsd:string ;
+        rdfs:comment "Specifies the city of the location."@en ;
+        rdfs:label "city"@en .
+
+
+###  http://tems.org/2024/temscore#colorDepth
+tc:colorDepth rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:ImageTechnicalMetadata ;
+              rdfs:range xsd:integer ;
+              rdfs:comment "The color depth of the image in bits (e.g., 24-bit, 32-bit)."@en ;
+              rdfs:label "color depth"@en .
+
+
+###  http://tems.org/2024/temscore#completionRate
+tc:completionRate rdf:type owl:DatatypeProperty ;
+                  rdfs:domain tc:Consumption ;
+                  rdfs:range xsd:decimal ;
+                  rdfs:comment "The percentage of users who completed the content."@en ;
+                  rdfs:label "completion rate"@en .
+
+
+###  http://tems.org/2024/temscore#conceptDescription
+tc:conceptDescription rdf:type owl:DatatypeProperty ;
+                      rdfs:domain tc:Concept ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "The description of the concept."@en ;
+                      rdfs:label "concept description"@en .
+
+
+###  http://tems.org/2024/temscore#conceptName
+tc:conceptName rdf:type owl:DatatypeProperty ;
+               rdfs:domain tc:Concept ;
+               rdfs:range rdfs:Literal ;
+               rdfs:comment "The name of the concept in different languages."@en ;
+               rdfs:label "concept name"@en .
+
+
+###  http://tems.org/2024/temscore#conceptSlug
+tc:conceptSlug rdf:type owl:DatatypeProperty ;
+               rdfs:domain tc:Concept ;
+               rdfs:range xsd:string ;
+               rdfs:comment "Slug or web-friendly identifier for the concept."@en ;
+               rdfs:label "concept locator"@en .
+
+
+###  http://tems.org/2024/temscore#coordinates
+tc:coordinates rdf:type owl:DatatypeProperty ;
+               rdfs:domain tc:Location ;
+               rdfs:range xsd:string ;
+               rdfs:comment "Specifies the geographic coordinates (latitude, longitude) of the location."@en ;
+               rdfs:label "coordinates"@en .
+
+
+###  http://tems.org/2024/temscore#country
+tc:country rdf:type owl:DatatypeProperty ;
+           rdfs:domain tc:Location ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Specifies the country of the location."@en ;
+           rdfs:label "country"@en .
+
+
+###  http://tems.org/2024/temscore#creationDate
+tc:creationDate rdf:type owl:DatatypeProperty ;
+                rdfs:domain tc:Provenance ;
+                rdfs:range xsd:dateTime ;
+                rdfs:comment "The date and time when the content was created."@en ;
+                rdfs:label "creation date"@en .
+
+
+###  http://tems.org/2024/temscore#currency
+tc:currency rdf:type owl:DatatypeProperty ;
+            rdfs:domain tc:Publication ;
+            rdfs:range xsd:string ;
+            rdfs:comment "Currency code for the price (ISO 4217, e.g., 'EUR')."@en ;
+            rdfs:label "currency"@en .
+
+
+###  http://tems.org/2024/temscore#description
+tc:description rdf:type owl:DatatypeProperty ;
+               rdfs:domain tc:MediaInstance ;
+               rdfs:range rdfs:Literal ;
+               rdfs:comment "A description of the media instance, such as its purpose or additional contextual information."@en ;
+               rdfs:label "instance description"@en .
+
+
+###  http://tems.org/2024/temscore#descriptionPurpose
+tc:descriptionPurpose rdf:type owl:DatatypeProperty ;
+                      rdfs:domain tc:Descriptor ;
+                      rdfs:range rdfs:Literal ;
+                      rdfs:comment "Definition of the purpose of the description."@en ;
+                      rdfs:label "description purpose"@en .
+
+
+###  http://tems.org/2024/temscore#descriptionText
+tc:descriptionText rdf:type owl:DatatypeProperty ;
+                   rdfs:domain tc:Descriptor ;
+                   rdfs:range rdfs:Literal ;
+                   rdfs:comment "A textual description provided by the descriptor agent."@en ;
+                   rdfs:label "description text"@en .
+
+
+###  http://tems.org/2024/temscore#dimensions
+tc:dimensions rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:ImageTechnicalMetadata ;
+              rdfs:range rdfs:Literal ;
+              rdfs:comment "The dimensions of the image (e.g., 1920x1080 pixels)."@en ;
+              rdfs:label "dimensions"@en .
+
+
+###  http://tems.org/2024/temscore#disclaimer
+tc:disclaimer rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:Rights ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Represents a legal or usage disclaimer related to the media object."@en ;
+              rdfs:label "disclaimer"@en .
+
+
+###  http://tems.org/2024/temscore#email
+tc:email rdf:type owl:DatatypeProperty ;
+         rdfs:domain tc:Agent ;
+         rdfs:range xsd:string ;
+         rdfs:comment "Contact email address of an Agent."@en ;
+         rdfs:label "email"@en .
+
+
+###  http://tems.org/2024/temscore#endDate
+tc:endDate rdf:type owl:DatatypeProperty ;
+           rdfs:domain tc:Event ;
+           rdfs:range xsd:dateTime ;
+           rdfs:comment "The date when the event ends."@en ;
+           rdfs:label "end date"@en .
+
+
+###  http://tems.org/2024/temscore#engagementRate
+tc:engagementRate rdf:type owl:DatatypeProperty ;
+                  rdfs:domain tc:Consumption ;
+                  rdfs:range xsd:decimal ;
+                  rdfs:comment "The rate of user interactions relative to views."@en ;
+                  rdfs:label "engagement rate"@en .
+
+
+###  http://tems.org/2024/temscore#evaluationDate
+tc:evaluationDate rdf:type owl:DatatypeProperty ;
+                  rdfs:domain tc:MediaEvaluation ;
+                  rdfs:range xsd:dateTime ;
+                  rdfs:comment "The date when the media object was evaluated for accuracy."@en ;
+                  rdfs:label "evaluation date"@en .
+
+
+###  http://tems.org/2024/temscore#eventDescription
+tc:eventDescription rdf:type owl:DatatypeProperty ;
+                    rdfs:domain tc:Event ;
+                    rdfs:range rdfs:Literal ;
+                    rdfs:comment "A brief description of the event."@en ;
+                    rdfs:label "event description"@en .
+
+
+###  http://tems.org/2024/temscore#eventName
+tc:eventName rdf:type owl:DatatypeProperty ;
+             rdfs:domain tc:Event ;
+             rdfs:range xsd:string ;
+             rdfs:comment "The name of the event."@en ;
+             rdfs:label "event name"@en .
+
+
+###  http://tems.org/2024/temscore#fileFormat
+tc:fileFormat rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:TechnicalMetadata ;
+              rdfs:range xsd:string ;
+              rdfs:comment "The file format of the media object (e.g. mimetypes: video/mp4, audio/mp3, image/jpeg)."@en ;
+              rdfs:label "file format"@en .
+
+
+###  http://tems.org/2024/temscore#fileSize
+tc:fileSize rdf:type owl:DatatypeProperty ;
+            rdfs:domain tc:TechnicalMetadata ;
+            rdfs:range xsd:nonNegativeInteger ;
+            rdfs:comment "The size of the media object file in bytes."@en ;
+            rdfs:label "file size"@en .
+
+
+###  http://tems.org/2024/temscore#frameRate
+tc:frameRate rdf:type owl:DatatypeProperty ;
+             rdfs:domain tc:VideoTechnicalMetadata ;
+             rdfs:range xsd:decimal ;
+             rdfs:comment "The frame rate of the video content in frames per second (e.g., 30fps, 60fps)."@en ;
+             rdfs:label "frame rate"@en .
+
+
+###  http://tems.org/2024/temscore#generativeAIUseAllowed
+tc:generativeAIUseAllowed rdf:type owl:DatatypeProperty ;
+                          rdfs:domain tc:Rights ;
+                          rdfs:range xsd:boolean ;
+                          rdfs:comment "Permission flag from the rights holder allowing use for generative AI (e.g., training)."@en ;
+                          rdfs:label "generative-ai use allowed"@en .
+
+
+###  http://tems.org/2024/temscore#groupingDescription
+tc:groupingDescription rdf:type owl:DatatypeProperty ;
+                       rdfs:domain tc:ContentGrouping ;
+                       rdfs:range rdfs:Literal ;
+                       rdfs:comment "The description of the content grouping in different languages."@en ;
+                       rdfs:label "grouping description"@en .
+
+
+###  http://tems.org/2024/temscore#groupingTitle
+tc:groupingTitle rdf:type owl:DatatypeProperty ;
+                 rdfs:domain tc:ContentGrouping ;
+                 rdfs:range rdfs:Literal ;
+                 rdfs:comment "The title of the content grouping in different languages."@en ;
+                 rdfs:label "grouping title"@en .
+
+
+###  http://tems.org/2024/temscore#groupingType
+tc:groupingType rdf:type owl:DatatypeProperty ;
+                rdfs:domain tc:ContentGrouping ;
+                rdfs:range xsd:string ;
+                rdfs:comment "The type of content grouping (e.g., show)."@en ;
+                rdfs:label "grouping type"@en .
+
+
+###  http://tems.org/2024/temscore#groupingURI
+tc:groupingURI rdf:type owl:DatatypeProperty ;
+               rdfs:domain tc:ContentGrouping ;
+               rdfs:range xsd:anyURI ;
+               rdfs:comment "The URI linking to the content grouping."@en ;
+               rdfs:label "grouping uri"@en .
+
+
+###  http://tems.org/2024/temscore#hasEvaluationKeyword
+tc:hasEvaluationKeyword rdf:type owl:DatatypeProperty ;
+                        rdfs:domain tc:MediaEvaluation ;
+                        rdfs:range rdfs:Literal ;
+                        rdfs:comment "Keywords related to disinformation and misinformation."@en ;
+                        rdfs:label "evaluation keyword"@en .
+
+
+###  http://tems.org/2024/temscore#hasEvaluationStatus
+tc:hasEvaluationStatus rdf:type owl:DatatypeProperty ;
+                       rdfs:domain tc:MediaEvaluation ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "The current status of the media evaluation, such as Usable or Pending."@en ;
+                       rdfs:label "evaluation status"@en .
+
+
+###  http://tems.org/2024/temscore#hasHeadline
+tc:hasHeadline rdf:type owl:DatatypeProperty ;
+               rdfs:domain tc:MediaEvaluation ;
+               rdfs:range xsd:string ;
+               rdfs:comment "The headline associated with the media evaluation."@en ;
+               rdfs:label "headline"@en .
+
+
+###  http://tems.org/2024/temscore#hasSummary
+tc:hasSummary rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:ContentDescription ;
+              rdfs:range rdfs:Literal ;
+              rdfs:comment "A summary of the media object."@en ;
+              rdfs:label "summary"@en .
+
+
+###  http://tems.org/2024/temscore#identifierValue
+tc:identifierValue rdf:type owl:DatatypeProperty ;
+                   rdfs:domain tc:Identifier ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Exact literal as issued (case/format preserved)."@en ;
+                   rdfs:label "identifier value"@en .
+
+
+###  http://tems.org/2024/temscore#isAIGenerated
+tc:isAIGenerated rdf:type owl:DatatypeProperty ;
+                 rdfs:domain tc:MediaObject ;
+                 rdfs:range xsd:boolean ;
+                 rdfs:comment "True if the editorial version (MediaObject) was generated by an AI system."@en ;
+                 rdfs:label "is ai-generated"@en .
+
+
+###  http://tems.org/2024/temscore#isForced
+tc:isForced rdf:type owl:DatatypeProperty ;
+            rdfs:domain tc:TextTrackTechnicalMetadata ;
+            rdfs:range xsd:boolean ;
+            rdfs:comment "Whether the subtitle track is a forced track."@en ;
+            rdfs:label "is forced"@en .
+
+
+###  http://tems.org/2024/temscore#isLowPoly
+tc:isLowPoly rdf:type owl:DatatypeProperty ;
+             rdfs:domain tc:ThreeDModelTechnicalMetadata ;
+             rdfs:range xsd:boolean ;
+             rdfs:comment "Boolean flag indicating that the mesh complexity is low (e.g., suitable for real-time use)."@en ;
+             rdfs:label "is low-poly"@en .
+
+
+###  http://tems.org/2024/temscore#isSDH
+tc:isSDH rdf:type owl:DatatypeProperty ;
+         rdfs:domain tc:TextTrackTechnicalMetadata ;
+         rdfs:range xsd:boolean ;
+         rdfs:comment "Subtitles for the Deaf and Hard-of-hearing."@en ;
+         rdfs:label "is sdh"@en .
+
+
+###  http://tems.org/2024/temscore#issuerName
+tc:issuerName rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:Identifier ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Textual name of the issuing agent (use when the Agent node is not modeled)."@en ;
+              rdfs:label "issuer name"@en .
+
+
+###  http://tems.org/2024/temscore#jobDescription
+tc:jobDescription rdf:type owl:DatatypeProperty ;
+                  rdfs:domain tc:ProductionJob ;
+                  rdfs:range rdfs:Literal ;
+                  rdfs:comment "A description of the production job."@en ;
+                  rdfs:label "job description"@en .
+
+
+###  http://tems.org/2024/temscore#keyword
+tc:keyword rdf:type owl:DatatypeProperty ;
+           rdfs:domain tc:MediaEvaluation ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Keyword associated with a resource."@en ;
+           rdfs:label "keyword"@en .
+
+
+###  http://tems.org/2024/temscore#keywords
+tc:keywords rdf:type owl:DatatypeProperty ;
+            rdfs:domain tc:ContentDescription ;
+            rdfs:range rdfs:Literal ;
+            rdfs:comment "Keywords associated with the content."@en ;
+            rdfs:label "keywords"@en .
+
+
+###  http://tems.org/2024/temscore#license
+tc:license rdf:type owl:DatatypeProperty ;
+           rdfs:domain tc:Rights ;
+           rdfs:range rdfs:Literal ;
+           rdfs:comment "The license under which the content is released."@en ;
+           rdfs:label "license"@en .
+
+
+###  http://tems.org/2024/temscore#locator
+tc:locator rdf:type owl:DatatypeProperty ;
+           rdfs:domain tc:MediaObject ;
+           rdfs:range xsd:anyURI ;
+           rdfs:comment "URI/URL linking to the content in different languages."@en ;
+           rdfs:label "content uri"@en .
+
+
+###  http://tems.org/2024/temscore#meshFaceCount
+tc:meshFaceCount rdf:type owl:DatatypeProperty ;
+                 rdfs:domain tc:ThreeDModelTechnicalMetadata ;
+                 rdfs:range xsd:integer ;
+                 rdfs:comment "Number of faces/polygons for the primary LOD of the 3D asset."@en ;
+                 rdfs:label "mesh face count"@en .
+
+
+###  http://tems.org/2024/temscore#meshVertexCount
+tc:meshVertexCount rdf:type owl:DatatypeProperty ;
+                   rdfs:domain tc:ThreeDModelTechnicalMetadata ;
+                   rdfs:range xsd:integer ;
+                   rdfs:comment "Number of vertices for the primary LOD of the 3D asset."@en ;
+                   rdfs:label "mesh vertex count"@en .
+
+
+###  http://tems.org/2024/temscore#modificationDate
+tc:modificationDate rdf:type owl:DatatypeProperty ;
+                    rdfs:domain tc:Provenance ;
+                    rdfs:range xsd:dateTime ;
+                    rdfs:comment "The date and time when the content was modified."@en ;
+                    rdfs:label "modification date"@en .
+
+
+###  http://tems.org/2024/temscore#odrlPolicyID
+tc:odrlPolicyID rdf:type owl:DatatypeProperty ;
+                rdfs:domain tc:Rights ;
+                rdfs:range xsd:anyURI ;
+                rdfs:comment "Identifier/IRI of the ODRL policy attached to the media object."@en ;
+                rdfs:label "odrl policy id"@en .
+
+
+###  http://tems.org/2024/temscore#order
+tc:order rdf:type owl:DatatypeProperty ;
+         rdfs:domain tc:OrderedSegment ;
+         rdfs:range xsd:integer ;
+         rdfs:comment "Defines the order of a segment within the ordered collection."@en ;
+         rdfs:label "order"@en .
+
+
+###  http://tems.org/2024/temscore#originalLanguage
+tc:originalLanguage rdf:type owl:DatatypeProperty ;
+                    rdfs:domain tc:MediaObject ;
+                    rdfs:range xsd:language ;
+                    rdfs:comment "Original language of the work/version as an ISO 639 / BCP-47 code."@en ;
+                    rdfs:label "original language"@en .
+
+
+###  http://tems.org/2024/temscore#paywall
+tc:paywall rdf:type owl:DatatypeProperty ;
+           rdfs:domain tc:Publication ;
+           rdfs:range xsd:boolean ;
+           rdfs:comment "Indicates whether access to the publication is paywalled."@en ;
+           rdfs:label "paywalled"@en .
+
+
+###  http://tems.org/2024/temscore#phone
+tc:phone rdf:type owl:DatatypeProperty ;
+         rdfs:domain tc:Agent ;
+         rdfs:range xsd:string ;
+         rdfs:comment "Contact phone number of an Agent."@en ;
+         rdfs:label "phone"@en .
+
+
+###  http://tems.org/2024/temscore#price
+tc:price rdf:type owl:DatatypeProperty ;
+         rdfs:domain tc:Publication ;
+         rdfs:range xsd:decimal ;
+         rdfs:comment "Price associated with access to the publication, if applicable."@en ;
+         rdfs:label "price"@en .
+
+
+###  http://tems.org/2024/temscore#propensityModel
+tc:propensityModel rdf:type owl:DatatypeProperty ;
+                   rdfs:domain tc:Consumption ;
+                   rdfs:range xsd:anyURI ;
+                   rdfs:comment "A file or URI representing the propensity model used to predict user behavior."@en ;
+                   rdfs:label "propensity model"@en .
+
+
+###  http://tems.org/2024/temscore#publicationDate
+tc:publicationDate rdf:type owl:DatatypeProperty ;
+                   rdfs:domain tc:Publication ;
+                   rdfs:range xsd:dateTime ;
+                   rdfs:comment "The publication date and time of the content."@en ;
+                   rdfs:label "publication date"@en .
+
+
+###  http://tems.org/2024/temscore#region
+tc:region rdf:type owl:DatatypeProperty ;
+          rdfs:domain tc:Location ;
+          rdfs:range xsd:string ;
+          rdfs:comment "Specifies the region or state of the location."@en ;
+          rdfs:label "region/state"@en .
+
+
+###  http://tems.org/2024/temscore#resolution
+tc:resolution rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:VideoTechnicalMetadata ;
+              rdfs:range rdfs:Literal ;
+              rdfs:comment "The resolution of the video content (e.g., 1920x1080)."@en ;
+              rdfs:label "resolution"@en .
+
+
+###  http://tems.org/2024/temscore#roleDescription
+tc:roleDescription rdf:type owl:DatatypeProperty ;
+                   rdfs:domain tc:Role ;
+                   rdfs:range rdfs:Literal ;
+                   rdfs:comment "Provides additional details about the role performed in content creation."@en ;
+                   rdfs:label "role description"@en .
+
+
+###  http://tems.org/2024/temscore#roleType
+tc:roleType rdf:type owl:DatatypeProperty ;
+            rdfs:domain tc:Role ;
+            rdfs:range xsd:string ;
+            rdfs:comment "Specifies the type of role performed in the creation of media object (e.g., Director, Writer)."@en ;
+            rdfs:label "role type"@en .
+
+
+###  http://tems.org/2024/temscore#sampleRate
+tc:sampleRate rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:AudioTechnicalMetadata ;
+              rdfs:range xsd:nonNegativeInteger ;
+              rdfs:comment "The sample rate of the audio content in Hertz (e.g., 44100Hz)."@en ;
+              rdfs:label "sample rate"@en .
+
+
+###  http://tems.org/2024/temscore#segmentDescription
+tc:segmentDescription rdf:type owl:DatatypeProperty ;
+                      rdfs:domain tc:OrderedSegment ;
+                      rdfs:range rdfs:Literal ;
+                      rdfs:comment "A description of the ordered segment."@en ;
+                      rdfs:label "segment description"@en .
+
+
+###  http://tems.org/2024/temscore#sentimentScore
+tc:sentimentScore rdf:type owl:DatatypeProperty ;
+                  rdfs:domain tc:Article ;
+                  rdfs:range xsd:decimal ;
+                  rdfs:comment "The score resulting from the sentiment analysis of the content."@en ;
+                  rdfs:label "sentiment score"@en .
+
+
+###  http://tems.org/2024/temscore#serviceDescription
+tc:serviceDescription rdf:type owl:DatatypeProperty ;
+                      rdfs:domain tc:Agent ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "Free-text description of services offered by the Agent (e.g., scanning, photogrammetry, restoration)."@en ;
+                      rdfs:label "service description"@en .
+
+
+###  http://tems.org/2024/temscore#signal
+tc:signal rdf:type owl:DatatypeProperty ;
+          rdfs:domain tc:Provenance ;
+          rdfs:range rdfs:Literal ;
+          rdfs:comment "Represents an update or signal of changes to the content."@en ;
+          rdfs:label "signal"@en .
+
+
+###  http://tems.org/2024/temscore#source
+tc:source rdf:type owl:DatatypeProperty ;
+          rdfs:domain tc:Provenance ;
+          rdfs:range rdfs:Literal ;
+          rdfs:comment "Represents the origin or source of the media object."@en ;
+          rdfs:label "source"@en .
+
+
+###  http://tems.org/2024/temscore#sourceURI
+tc:sourceURI rdf:type owl:DatatypeProperty ;
+             rdfs:domain tc:MediaInstance ;
+             rdfs:range xsd:anyURI ;
+             rdfs:comment "The URI or source location of the MediaInstance, such as a file URL or storage location."@en ;
+             rdfs:label "source/location uri"@en .
+
+
+###  http://tems.org/2024/temscore#startDate
+tc:startDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain tc:Event ;
+             rdfs:range xsd:dateTime ;
+             rdfs:comment "The date when the event starts."@en ;
+             rdfs:label "start date"@en .
+
+
+###  http://tems.org/2024/temscore#subtitle
+tc:subtitle rdf:type owl:DatatypeProperty ;
+            rdfs:domain tc:MediaObject ;
+            rdfs:range rdfs:Literal ;
+            rdfs:comment "The subtitle of the media object in different languages."@en ;
+            rdfs:label "subtitle"@en .
+
+
+###  http://tems.org/2024/temscore#temporalCoverage
+tc:temporalCoverage rdf:type owl:DatatypeProperty ;
+                    rdfs:domain tc:MediaObject ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Human-readable period string (e.g., '16th Century', 'Renaissance'). Consider mapping to a SKOS Period scheme later."@en ;
+                    rdfs:label "temporal coverage"@en .
+
+
+###  http://tems.org/2024/temscore#text
+tc:text rdf:type owl:DatatypeProperty ;
+        rdfs:domain tc:Article ;
+        rdfs:range rdfs:Literal ;
+        rdfs:comment "The text of the Article in different languages."@en ;
+        rdfs:label "text"@en .
+
+
+###  http://tems.org/2024/temscore#textFileURI
+tc:textFileURI rdf:type owl:DatatypeProperty ;
+               rdfs:domain tc:TextTrackTechnicalMetadata ;
+               rdfs:range xsd:anyURI ;
+               rdfs:comment "External subtitle/caption file location if applicable."@en ;
+               rdfs:label "text file uri"@en .
+
+
+###  http://tems.org/2024/temscore#textFormat
+tc:textFormat rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:TextTrackTechnicalMetadata ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Subtitle/caption format (e.g., WebVTT, SRT, TTML)."@en ;
+              rdfs:label "text format"@en .
+
+
+###  http://tems.org/2024/temscore#textLanguage
+tc:textLanguage rdf:type owl:DatatypeProperty ;
+                rdfs:domain tc:TextTrackTechnicalMetadata ;
+                rdfs:range xsd:language ;
+                rdfs:comment "Language of the text track as an ISO 639 / BCP-47 code (e.g., 'fr', 'en-US')."@en ;
+                rdfs:label "text language"@en .
+
+
+###  http://tems.org/2024/temscore#textStreamIndex
+tc:textStreamIndex rdf:type owl:DatatypeProperty ;
+                   rdfs:domain tc:TextTrackTechnicalMetadata ;
+                   rdfs:range xsd:nonNegativeInteger ;
+                   rdfs:comment "Index of the text track stream within the media instance."@en ;
+                   rdfs:label "text stream index"@en .
+
+
+###  http://tems.org/2024/temscore#titleContent
+tc:titleContent rdf:type owl:DatatypeProperty ;
+                rdfs:domain tc:Title ;
+                rdfs:range xsd:string ;
+                rdfs:comment "Literal content of the title variant."@en ;
+                rdfs:label "title content"@en .
+
+
+###  http://tems.org/2024/temscore#titleLanguage
+tc:titleLanguage rdf:type owl:DatatypeProperty ;
+                 rdfs:domain tc:Title ;
+                 rdfs:range xsd:language ;
+                 rdfs:comment "Language of the title as an ISO 639 / BCP-47 code."@en ;
+                 rdfs:label "title language"@en .
+
+
+###  http://tems.org/2024/temscore#totalClicks
+tc:totalClicks rdf:type owl:DatatypeProperty ;
+               rdfs:domain tc:Consumption ;
+               rdfs:range xsd:integer ;
+               rdfs:comment "The total number of clicks on the media object."@en ;
+               rdfs:label "total clicks"@en .
+
+
+###  http://tems.org/2024/temscore#totalLinks
+tc:totalLinks rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:ContentDescription ;
+              rdfs:range xsd:integer ;
+              rdfs:comment "Stores the total number of hyperlinks or references in the media object."@en ;
+              rdfs:label "total links"@en .
+
+
+###  http://tems.org/2024/temscore#totalViews
+tc:totalViews rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:Consumption ;
+              rdfs:range xsd:integer ;
+              rdfs:comment "The total number of times the media object was viewed."@en ;
+              rdfs:label "total views"@en .
+
+
+###  http://tems.org/2024/temscore#version
+tc:version rdf:type owl:DatatypeProperty ;
+           rdfs:domain tc:MediaInstance ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Represents the version of the media instance, useful for tracking revisions or formats."@en ;
+           rdfs:label "version"@en .
+
+
+###  http://tems.org/2024/temscore#versionDescription
+tc:versionDescription rdf:type owl:DatatypeProperty ;
+                      rdfs:domain tc:Provenance ;
+                      rdfs:range rdfs:Literal ;
+                      rdfs:comment "A description of the version of the content."@en ;
+                      rdfs:label "version description"@en .
+
+
+###  http://tems.org/2024/temscore#versionNumber
+tc:versionNumber rdf:type owl:DatatypeProperty ;
+                 rdfs:domain tc:Provenance ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "The version number of the content."@en ;
+                 rdfs:label "version number"@en .
+
+
+###  http://tems.org/2024/temscore#videoCodec
+tc:videoCodec rdf:type owl:DatatypeProperty ;
+              rdfs:domain tc:VideoTechnicalMetadata ;
+              rdfs:range rdfs:Literal ;
+              rdfs:comment "The video codec used to encode the video content (e.g., H.264, VP9)."@en ;
+              rdfs:label "video codec"@en .
+
+
+###  http://tems.org/2024/temscore#videoStreamIndex
+tc:videoStreamIndex rdf:type owl:DatatypeProperty ;
+                    rdfs:domain tc:VideoTechnicalMetadata ;
+                    rdfs:range xsd:nonNegativeInteger ;
+                    rdfs:comment "The index of the video stream in the MediaInstance."@en ;
+                    rdfs:label "video stream index"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://tems.org/2024/temscore#Agent
+tc:Agent rdf:type owl:Class ;
+         rdfs:comment "An entity that performs tasks, such as a person, organization, or digital tool."@en ;
+         rdfs:label "Agent"@en .
+
+
+###  http://tems.org/2024/temscore#Article
+tc:Article rdf:type owl:Class ;
+           rdfs:subClassOf tc:MediaObject ;
+           rdfs:comment "Represents a written article or text-based content. An article may contain other media segments."@en ;
+           rdfs:label "Article"@en .
+
+
+###  http://tems.org/2024/temscore#Audio
+tc:Audio rdf:type owl:Class ;
+         rdfs:subClassOf tc:MediaObject ;
+         rdfs:comment "Represents audio content, such as podcasts, music, or radio broadcasts. Audio can be a standalone media object or part of another media object."@en ;
+         rdfs:label "Audio"@en .
+
+
+###  http://tems.org/2024/temscore#AudioTechnicalMetadata
+tc:AudioTechnicalMetadata rdf:type owl:Class ;
+                          rdfs:subClassOf tc:TechnicalMetadata ;
+                          rdfs:comment "Represents the technical properties specific to audio content."@en ;
+                          rdfs:label "Audio Technical Metadata"@en .
+
+
+###  http://tems.org/2024/temscore#Chapter
+tc:Chapter rdf:type owl:Class ;
+           rdfs:comment "Represents a structured linear segment of the content, with start and stop points."@en ;
+           rdfs:label "Chapter"@en .
+
+
+###  http://tems.org/2024/temscore#Concept
+tc:Concept rdf:type owl:Class ;
+           rdfs:subClassOf skos:Concept ;
+           rdfs:comment "A tag or category associated with the content."@en ;
+           rdfs:label "Concept"@en .
+
+
+###  http://tems.org/2024/temscore#Consumption
+tc:Consumption rdf:type owl:Class ;
+               rdfs:comment "Describes the consumption of media instance, focusing on aggregate metrics and audience data."@en ;
+               rdfs:label "Consumption"@en .
+
+
+###  http://tems.org/2024/temscore#ContentDescription
+tc:ContentDescription rdf:type owl:Class ;
+                      rdfs:comment "Handles the overall description of content, including intrinsic properties and agent-dependent descriptions."@en ;
+                      rdfs:label "Content Description"@en .
+
+
+###  http://tems.org/2024/temscore#ContentGrouping
+tc:ContentGrouping rdf:type owl:Class ;
+                   rdfs:comment "Represents a group or category of media object, such as a series or collection."@en ;
+                   rdfs:label "Content Grouping"@en .
+
+
+###  http://tems.org/2024/temscore#Contribution
+tc:Contribution rdf:type owl:Class ;
+                rdfs:comment "Reified assignment of an Agent in a Role contributing to a MediaObject, optionally with period and details."@en ;
+                rdfs:label "Contribution"@en .
+
+
+###  http://tems.org/2024/temscore#Contributors
+tc:Contributors rdf:type owl:Class .
+
+
+###  http://tems.org/2024/temscore#Dataset
+tc:Dataset rdf:type owl:Class ;
+           rdfs:subClassOf tc:MediaObject ;
+           rdfs:comment "Represents structured data or datasets, such as CSV files, databases, or statistical data. A dataset can be part of another media object."@en ;
+           rdfs:label "Dataset"@en .
+
+
+###  http://tems.org/2024/temscore#Descriptor
+tc:Descriptor rdf:type owl:Class ;
+              rdfs:comment "Represents a specific descriptive activity performed by an agent, such as generating embeddings or writing a summary."@en ;
+              rdfs:label "Descriptor"@en .
+
+
+###  http://tems.org/2024/temscore#DigitalTool
+tc:DigitalTool rdf:type owl:Class ;
+               rdfs:subClassOf tc:Agent ;
+               rdfs:comment "A software or digital system acting as an agent."@en ;
+               rdfs:label "Digital Tool"@en .
+
+
+###  http://tems.org/2024/temscore#Event
+tc:Event rdf:type owl:Class ;
+         rdfs:comment "Represents a significant occurrence or happening related to media object, publications."@en ;
+         rdfs:label "Event"@en .
+
+
+###  http://tems.org/2024/temscore#Identifier
+tc:Identifier rdf:type owl:Class ;
+              rdfs:label "Identifier"@en ;
+              rdfs:comment "Structured identifier with a value, scheme/type, and optional issuer."@en .
+
+
+###  http://tems.org/2024/temscore#Image
+tc:Image rdf:type owl:Class ;
+         rdfs:subClassOf tc:MediaObject ;
+         rdfs:comment "Represents an image that can be a standalone media object or part of another media object."@en ;
+         rdfs:label "Image"@en .
+
+
+###  http://tems.org/2024/temscore#ImageTechnicalMetadata
+tc:ImageTechnicalMetadata rdf:type owl:Class ;
+                          rdfs:subClassOf tc:TechnicalMetadata ;
+                          rdfs:comment "Represents the technical properties specific to image content."@en ;
+                          rdfs:label "Image Technical Metadata"@en .
+
+
+###  http://tems.org/2024/temscore#Location
+tc:Location rdf:type owl:Class ;
+            rdfs:comment "Represents the geographic location associated with media object, agents, or events."@en ;
+            rdfs:label "Location"@en .
+
+
+###  http://tems.org/2024/temscore#MediaEvaluation
+tc:MediaEvaluation rdf:type owl:Class ;
+                   rdfs:comment "Represents the evaluation of media object, specifically for fact-checking and assessing misinformation."@en ;
+                   rdfs:label "Media Evaluation"@en .
+
+
+###  http://tems.org/2024/temscore#MediaInstance
+tc:MediaInstance rdf:type owl:Class ;
+                 rdfs:comment "Represents a specific version or physical representation of a media object, such as a file with certain properties or formats."@en ;
+                 rdfs:label "Media Instance"@en .
+
+
+###  http://tems.org/2024/temscore#MediaObject
+tc:MediaObject rdf:type owl:Class ;
+               rdfs:comment "Editorial version/cut of a media work (e.g., theatrical, director's, censored). Use tc:MediaWork for the abstract work and tc:MediaInstance for the embodiment/encapsulation."@en ;
+               rdfs:label "Media Object"@en .
+
+###  http://tems.org/2024/temscore#MediaWork
+tc:MediaWork rdf:type owl:Class ;
+             rdfs:comment "Abstract intellectual creation (e.g., a film or program as a work). Aligns with ebucore EditorialWork."@en ;
+             rdfs:label "Media Work"@en .
+
+
+###  http://tems.org/2024/temscore#OrderedSegment
+tc:OrderedSegment rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty tc:hasSegmentType ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass skos:Concept
+                                  ] .
+
+
+###  http://tems.org/2024/temscore#Organization
+tc:Organization rdf:type owl:Class ;
+                rdfs:subClassOf tc:Agent ;
+                rdfs:comment "An organized group of people acting as an agent."@en ;
+                rdfs:label "Organization"@en .
+
+
+###  http://tems.org/2024/temscore#Person
+tc:Person rdf:type owl:Class ;
+          rdfs:subClassOf tc:Agent ;
+          rdfs:comment "A human individual acting as an agent."@en ;
+          rdfs:label "Person"@en .
+
+
+###  http://tems.org/2024/temscore#ProductionDevice
+tc:ProductionDevice rdf:type owl:Class ;
+                    rdfs:comment "A device or tool used during media production."@en ;
+                    rdfs:label "Production Device"@en .
+
+
+###  http://tems.org/2024/temscore#ProductionJob
+tc:ProductionJob rdf:type owl:Class ;
+                 rdfs:comment "Represents a job or task performed to generate media object or its instances."@en ;
+                 rdfs:label "Production Job"@en .
+
+
+###  http://tems.org/2024/temscore#Provenance
+tc:Provenance rdf:type owl:Class ;
+              rdfs:comment "Represents the history, origin, and modification details of the media object."@en ;
+              rdfs:label "Provenance"@en .
+
+
+###  http://tems.org/2024/temscore#Publication
+tc:Publication rdf:type owl:Class ;
+               rdfs:comment "Represents the publication details of a media instance, including access type, monetization model, price, and other related properties."@en ;
+               rdfs:label "Publication"@en .
+
+
+###  http://tems.org/2024/temscore#Rights
+tc:Rights rdf:type owl:Class ;
+          rdfs:comment "Covers legal and usage rights associated with the media object."@en ;
+          rdfs:label "Rights"@en .
+
+
+###  http://tems.org/2024/temscore#Role
+tc:Role rdf:type owl:Class ;
+        rdfs:comment "Represents the roles that an agent can perform specifically in the creation of media object."@en ;
+        rdfs:label "Role"@en .
+
+
+###  http://tems.org/2024/temscore#TargetAudience
+tc:TargetAudience rdf:type owl:Class ;
+                  rdfs:comment "Represents the target audience for the content, including socio-demographic data and segments."@en ;
+                  rdfs:label "Target Audience"@en .
+
+
+###  http://tems.org/2024/temscore#TechnicalMetadata
+tc:TechnicalMetadata rdf:type owl:Class ;
+                     rdfs:comment "Represents the technical properties of media object."@en ;
+                     rdfs:label "Technical Metadata"@en .
+
+
+###  http://tems.org/2024/temscore#TextTrackTechnicalMetadata
+tc:TextTrackTechnicalMetadata rdf:type owl:Class ;
+                              rdfs:subClassOf tc:TechnicalMetadata ;
+                              rdfs:comment "Technical properties for subtitle/caption tracks."@en ;
+                              rdfs:label "Text Track Technical Metadata"@en .
+
+
+###  http://tems.org/2024/temscore#ThreeDModelTechnicalMetadata
+tc:ThreeDModelTechnicalMetadata rdf:type owl:Class ;
+                                owl:equivalentClass <http://tems.org/2024/temscore#3DModelTechnicalMetadata> ;
+                                rdfs:subClassOf tc:TechnicalMetadata ;
+                                rdfs:comment "Represents the technical properties specific to 3D model content."@en ;
+                                rdfs:label "3D Object Technical Metadata"@en .
+
+
+###  http://tems.org/2024/temscore#ThreeDObject
+tc:ThreeDObject rdf:type owl:Class ;
+                owl:equivalentClass <http://tems.org/2024/temscore#3DObject> ;
+                rdfs:subClassOf tc:MediaObject ;
+                rdfs:comment "Represents 3D models or objects, such as CAD files, VR content, or digital sculptures. A 3D object can be part of another media object."@en ;
+                rdfs:label "3D Object"@en .
+
+
+###  http://tems.org/2024/temscore#Title
+tc:Title rdf:type owl:Class ;
+         rdfs:comment "A title variant with explicit language and kind (e.g., original, alternative)."@en ;
+         rdfs:label "Title"@en .
+
+
+###  http://tems.org/2024/temscore#Video
+tc:Video rdf:type owl:Class ;
+         rdfs:subClassOf tc:MediaObject ;
+         rdfs:comment "Represents video content, such as movies, clips, or documentaries. A video can be a standalone media object or part of another media object."@en ;
+         rdfs:label "Video"@en .
+
+
+###  http://tems.org/2024/temscore#VideoTechnicalMetadata
+tc:VideoTechnicalMetadata rdf:type owl:Class ;
+                          rdfs:subClassOf tc:TechnicalMetadata ;
+                          rdfs:comment "Represents the technical properties specific to video content."@en ;
+                          rdfs:label "Video Technical Metadata"@en .
+
+
+###  http://tems.org/2024/temscore#3DModelTechnicalMetadata
+<http://tems.org/2024/temscore#3DModelTechnicalMetadata> rdf:type owl:Class .
+
+
+###  http://tems.org/2024/temscore#3DObject
+<http://tems.org/2024/temscore#3DObject> rdf:type owl:Class .
+
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#List
+rdf:List rdf:type owl:Class .
+
+
+###  http://www.w3.org/2004/02/skos/core#Concept
+skos:Concept rdf:type owl:Class .
+
+
+###  http://www.w3.org/2004/02/skos/core#ConceptScheme
+skos:ConceptScheme rdf:type owl:Class .
+
+
+###  http://www.w3.org/2006/time#TemporalEntity
+time:TemporalEntity rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+

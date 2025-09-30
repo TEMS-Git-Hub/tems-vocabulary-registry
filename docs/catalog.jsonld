@@ -13,8 +13,8 @@
   "type": "dcat:Catalog",
   "dct:title": "TEMS / TAMIS Vocabulary Registry",
   "dct:description": "DCAT catalog of ontologies, shapes, indexes, and policies published from this repository.",
-  "dct:issued": "2025-09-15T15:33:03Z",
-  "dct:modified": "2025-09-15T15:33:03Z",
+  "dct:issued": "2025-09-30T20:54:11Z",
+  "dct:modified": "2025-09-30T20:54:11Z",
   "dct:publisher": {
     "type": "foaf:Agent",
     "foaf:name": "TEMS project"
@@ -67,6 +67,59 @@
           },
           "dcat:downloadURL": {
             "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/ontologies/core/0.1.0/core.ttl"
+          },
+          "dcat:mediaType": "text/turtle",
+          "dct:format": "text/turtle"
+        }
+      ]
+    },
+    {
+      "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/5.0.0/",
+      "@type": "dcat:Dataset",
+      "dct:title": "TEMS ontology: core (5.0.0)",
+      "dct:identifier": "tems:core:5.0.0",
+      "dcat:keyword": [
+        "tems",
+        "ontologies",
+        "core"
+      ],
+      "dct:hasVersion": "5.0.0",
+      "dcat:distribution": [
+        {
+          "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/5.0.0/core.jsonld",
+          "@type": "dcat:Distribution",
+          "dct:title": "core.jsonld",
+          "dcat:accessURL": {
+            "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/5.0.0/core.jsonld"
+          },
+          "dcat:downloadURL": {
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/ontologies/core/5.0.0/core.jsonld"
+          },
+          "dcat:mediaType": "application/ld+json",
+          "dct:format": "application/ld+json"
+        },
+        {
+          "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/5.0.0/core.rdf.xml",
+          "@type": "dcat:Distribution",
+          "dct:title": "core.rdf.xml",
+          "dcat:accessURL": {
+            "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/5.0.0/core.rdf.xml"
+          },
+          "dcat:downloadURL": {
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/ontologies/core/5.0.0/core.rdf.xml"
+          },
+          "dcat:mediaType": "application/rdf+xml",
+          "dct:format": "application/rdf+xml"
+        },
+        {
+          "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/5.0.0/core.ttl",
+          "@type": "dcat:Distribution",
+          "dct:title": "core.ttl",
+          "dcat:accessURL": {
+            "@id": "https://TEMS-Git-Hub.github.io/tems-vocabulary-registry/tems/ontologies/core/5.0.0/core.ttl"
+          },
+          "dcat:downloadURL": {
+            "@id": "https://raw.githubusercontent.com/TEMS-Git-Hub/tems-vocabulary-registry/main/tems/ontologies/core/5.0.0/core.ttl"
           },
           "dcat:mediaType": "text/turtle",
           "dct:format": "text/turtle"
